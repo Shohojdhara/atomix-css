@@ -1,0 +1,33 @@
+@use 'sass:color';
+@use 'sass:math';
+@use '../01-settings/settings.config' as config;
+
+// Return SASS color from RGB
+@function rgb-to-color($r, $g, $b) {
+  @return rgb($r, $g, $b);
+}
+
+// Tint a color: mix a color with white
+@function tint-color($color, $weight) {
+  @return color.mix(white, $color, $weight);
+}
+
+// Shade a color: mix a color with black
+@function shade-color($color, $weight) {
+  @return color.mix(black, $color, $weight);
+}
+
+@function shift-color($color, $weight) {
+  @if $weight >0 {
+    @return tint-color($color, $weight);
+  }
+
+  @else {
+    @return shade-color($color, -$weight);
+  }
+}
+
+// Return valid calc expression if includes CSS variables
+@function add-var($value1, $value2) {
+  @return ($value1 + $value2);
+}

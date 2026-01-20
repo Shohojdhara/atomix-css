@@ -1,0 +1,75 @@
+@use 'sass:meta';
+@use 'sass:string';
+@use 'sass:math';
+@use 'sass:color';
+@use 'sass:map';
+@use '../01-settings/settings.background' as *;
+@use '../01-settings/settings.config' as *;
+@use '../02-tools/tools.to-rgb' as *;
+
+@mixin dynamic-background(
+  $color,
+  $transparency: $background-transparency,
+  $background-transparency-enable: $background-transparency-enable
+) {
+  // Validate inputs
+  @if $transparency < 0 or $transparency > 1 {
+    @error 'Transparency must be between 0 and 1, got #{$transparency}';
+  }
+
+  // Apply background based on transparency settings
+  @if $background-transparency-enable and $transparency > 0 {
+    @if $background-enable-gradient-overlay {
+      background:
+        // Top highlight layer
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.15) 0%,
+          rgba(255, 255, 255, 0.05) 25%,
+          transparent 50%
+        ),
+        // Main liquid glass layer
+        linear-gradient(
+            to bottom,
+            color-mix(in srgb, #{$color} #{math.percentage($transparency * 1.2)}, transparent) 0%,
+            color-mix(in srgb, #{$color} #{math.percentage($transparency)}, transparent) 35%,
+            color-mix(in srgb, #{$color} #{math.percentage($transparency * 0.8)}, transparent) 65%,
+            color-mix(in srgb, #{$color} #{math.percentage($transparency * 1.1)}, transparent) 100%
+          ),
+        // Bottom shadow layer
+        radial-gradient(
+            ellipse at bottom,
+            color-mix(in srgb, #{$color} #{math.percentage($transparency * 0.3)}, transparent) 0%,
+            transparent 70%
+          );
+    } @else {
+      background-color: color-mix(
+        in srgb,
+        #{$color} #{math.percentage($transparency)},
+        transparent
+      );
+    }
+  } @else {
+    background-color: $color;
+  }
+
+  @if $background-enable-with-shadow {
+    box-shadow:
+      var(--atomix-box-shadow-inset),
+      // Inner glow
+      // inset
+      //   0
+      //   1px
+      //   0
+      //   rgba(255, 255, 255, 0.25),
+      // inset 0 -1px 0 color-mix(in srgb, #{$color} 10%, transparent),
+      // Outer depth
+      4px
+        8px
+        32px
+        color-mix(in srgb, #{$color} 20%, transparent),
+      0 1px 2px rgba(0, 0, 0, 0.1),
+      0 8px 20px color-mix(in srgb, #{$color} 20%, transparent),
+      0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}

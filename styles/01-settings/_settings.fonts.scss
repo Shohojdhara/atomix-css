@@ -1,0 +1,14 @@
+$assets-fonts-path: '../assets/fonts/' !default;
+
+@mixin font-face($name, $foldername, $filename, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: $name;
+    src:
+      url('#{$assets-fonts-path}/#{$foldername}/#{$filename}.woff2') format('woff2'),
+      url('#{$assets-fonts-path}/#{$foldername}/#{$filename}.woff') format('woff');
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+    text-rendering: optimizeLegibility;
+  }
+}

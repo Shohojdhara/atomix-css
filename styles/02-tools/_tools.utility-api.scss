@@ -1,0 +1,271 @@
+// Utility API
+// Bootstrap 5-inspired utility generator for Atomix Design System
+//
+// This API is used to generate utility classes from utility maps defined in the 99-utilities folder.
+// It provides a consistent way to generate utility classes with responsive variants, states, and more.
+// SASS Decimal Interpolation – If you want a more technical name, this focuses on the way decimal values are now processed in SASS with this code base or you can just use integer both will work.
+
+@use 'sass:map';
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:meta';
+@use '../01-settings/settings.config' as *;
+@use '../01-settings/settings.breakpoints' as *;
+
+// Default config for utilities
+$utility-defaults: (
+  responsive: true,
+  rfs: false,
+  print: false,
+  dark: false,
+  class: null,
+  state: null,
+  local-vars: (),
+  rtl: true,
+  ) !default;
+
+// Core function to generate utility classes
+@mixin generate-utility($utility, $infix: '', $is-rfs: false) {
+  $values: map.get($utility, values
+  );
+$css-var: map.get($utility, css-var);
+
+// If the values are a list or string, convert it to a map
+@if meta.type-of($values)=='string' or meta.type-of($values)=='list' {
+  $values: zip($values, $values);
+}
+
+@each $key, $value in $values {
+  $properties: map.get($utility, property);
+  $property-class: map.get($utility, class);
+
+  // Handle case where property-class is null
+  @if $property-class ==null and $properties {
+    @if meta.type-of($properties)=='list' {
+      $property-class: list.nth($properties, 1);
+    }
+
+    @else {
+      $property-class: $properties;
+    }
+  }
+
+  // State variants (hover, focus, active, etc.)
+  // Create a local copy of infix to avoid affecting other utilities
+  $local-infix: $infix;
+  $state: map.get($utility, state);
+
+  @if $state {
+    @if meta.type-of($state)=='string' {
+      $local-infix: '#{$state}#{$local-infix}';
+    }
+  }
+
+  // Escape special characters in key for valid CSS class names
+  $escaped-key: null;
+
+  @if $key {
+    $escaped-key: _escape-key($key);
+  }
+
+  @if map.get($utility, class)==null {
+    // Generate class with property name as class
+    $class-name: '#{$property-class}#{$local-infix}';
+
+    @if $key {
+      $class-name: '#{$property-class}-#{$escaped-key}#{$local-infix}';
+    }
+
+    .#{$class-name} {
+      @if $css-var {
+        // Handle CSS variable generation
+        $css-variable-name: str-replace(#{$property-class}, '.', '\\.');
+        --atomix-u-#{$css-variable-name}: #{$value};
+      }
+
+      @else if $properties {
+        @each $property in $properties {
+          $important: '!important';
+
+          @if map.get($utility, rtl) {
+            $important: null;
+          }
+
+          #{$property}: $value #{$important};
+        }
+      }
+
+      @else {
+        $important: '!important';
+
+        @if map.get($utility, rtl) {
+          $important: null;
+        }
+
+        #{$property-class}: $value #{$important};
+      }
+    }
+  }
+
+  @else {
+    // Generate class with custom class name
+    $base-class: map.get($utility, class);
+    $modifier: '';
+
+    @if $key {
+      $modifier: '-#{$escaped-key}';
+    }
+
+    .#{$base-class}#{$local-infix}#{$modifier} {
+      @if $css-var and $properties {
+
+        // Handle CSS variable generation with properties
+        @each $property in $properties {
+          $css-variable-name: str-replace(#{$property}, '.', '\\.');
+          --atomix-u-#{$css-variable-name}: #{$value};
+        }
+      }
+
+      @else if $css-var {
+        // Handle CSS variable generation without properties
+        $css-variable-name: str-replace(#{$base-class}, '.', '\\.');
+        --atomix-u-#{$css-variable-name}#{$modifier}: #{$value};
+      }
+
+      @else if $properties {
+        @each $property in $properties {
+          $important: '!important';
+
+          @if map.get($utility, rtl) {
+            $important: null;
+          }
+
+          #{$property}: $value #{$important};
+        }
+      }
+
+      @else {
+        $important: '!important';
+
+        @if map.get($utility, rtl) {
+          $important: null;
+        }
+
+        #{$base-class}: $value #{$important};
+      }
+    }
+  }
+}
+}
+
+// Core function to generate responsive utilities
+@mixin generate-responsive-utilities($utility, $breakpoints, $breakpoint-infix-generator) {
+  $responsive: map.get($utility, responsive);
+
+  @if $responsive {
+    @each $breakpoint in map.keys($breakpoints) {
+      $infix: call($breakpoint-infix-generator, $breakpoint);
+
+      @include media-breakpoint-up($breakpoint) {
+        @include generate-utility($utility, $infix);
+      }
+    }
+  }
+
+  @else {
+    @include generate-utility($utility);
+  }
+}
+
+// Main mixin to generate all utilities
+@mixin generate-utilities($utilities,
+  $breakpoints: $grid-breakpoints,
+  $breakpoint-infix-generator: null) {
+
+  // Set default breakpoint infix generator if not provided
+  @if $breakpoint-infix-generator ==null {
+    $breakpoint-infix-generator: get-breakpoint-infix;
+  }
+
+  @each $utility, $config in $utilities {
+    // Merge default config
+    $config: map.merge($utility-defaults, $config);
+
+    // Only process if the utility is not explicitly set to false
+    @if map.get($config, generated) !=false {
+      $utility-map: (
+        property: map.get($config, property),
+        values: map.get($config, values),
+        class: map.get($config, class),
+        state: map.get($config, state),
+        rtl: map.get($config, rtl),
+        css-var: map.get($config, css-var),
+        local-vars: map.get($config, local-vars),
+      );
+
+    @include generate-responsive-utilities($utility-map,
+      $breakpoints,
+      $breakpoint-infix-generator );
+  }
+}
+}
+
+// Helper function to get breakpoint infix
+@function get-breakpoint-infix($breakpoint) {
+  @if $breakpoint ==null {
+    @return '';
+  }
+
+  @return '-#{$breakpoint}';
+}
+
+// Helper function to escape keys for safe CSS class names
+@function _escape-key($key) {
+  $key-str: #{$key};
+  $escaped: '';
+  $len: string.length($key-str);
+
+  @for $i from 1 through $len {
+    $char: string.slice($key-str, $i, $i);
+    $char-to-add: $char;
+
+    @if $char =='.' {
+      $char-to-add: '\\.';
+    }
+
+    $escaped: $escaped + $char-to-add;
+  }
+
+  @return $escaped;
+}
+
+// Helper function to create value lists
+@function zip($keys, $values) {
+  $result: (
+  );
+$index: 1;
+
+@each $key in $keys {
+  $val: null;
+
+  @if $index <=list.length($values) {
+    $val: list.nth($values, $index);
+  }
+
+  $result: map.merge($result, ($key: $val));
+  $index: $index + 1;
+}
+
+@return $result;
+}
+
+// Helper function to replace strings
+@function str-replace($string, $search, $replace: '') {
+  $index: string.index($string, $search);
+
+  @if $index {
+    @return (str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace));
+  }
+
+  @return $string;
+}

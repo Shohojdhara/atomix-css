@@ -1,0 +1,74 @@
+@use '../01-settings/settings.config' as *;
+@use '../01-settings/settings.colors' as colors;
+@use '../02-tools/tools.rem' as *;
+@use '../02-tools/tools.background' as *;
+
+.c-color-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: rem(8px);
+  border-radius: 50%;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  color: var(--#{$prefix}body-color);
+
+  &:hover:not(:disabled) {
+    @include dynamic-background(rgba(0, 0, 0, 0.05));
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--#{$prefix}primary);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  svg {
+    display: block;
+    transition: transform 0.2s ease;
+  }
+
+  // Size variants
+  &--sm {
+    padding: rem(6px);
+  }
+
+  &--md {
+    padding: rem(8px);
+  }
+
+  &--lg {
+    padding: rem(10px);
+  }
+
+  // Disabled state
+  &--disabled,
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  [data-#{$prefix}theme='dark'] & {
+    &:hover:not(:disabled) {
+      @include dynamic-background(rgba(255, 255, 255, 0.1));
+    }
+  }
+
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    svg {
+      transition: none;
+    }
+
+    &:active:not(:disabled) {
+      transform: none;
+    }
+  }
+}

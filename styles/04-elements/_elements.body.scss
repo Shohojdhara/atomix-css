@@ -1,0 +1,20 @@
+@use '../01-settings/settings.typography' as typography;
+@use '../01-settings/settings.config' as config;
+@use '../01-settings/settings.background' as *;
+@use '../01-settings/settings.colors' as *;
+@use '../02-tools/tools.background' as *;
+@use '../02-tools/tools.color-mode' as *;
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: typography.$font-family-base;
+  font-weight: typography.$font-weight-base;
+  font-size: typography.$font-size-base;
+  line-height: typography.$line-height-base;
+
+  &.is-blocked,
+  &.is-modal-open {
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,73 @@
+@use 'sass:map';
+@use './settings.spacing' as *;
+@use 'settings.config' as config;
+@use 'settings.typography' as typography;
+@use 'settings.border-radius' as borderRadius;
+
+$upload-width: 500px !default;
+$upload-width-sm: 400px !default;
+$upload-width-large: 700px !default;
+
+$upload-padding-x: map.get($spacing-sizes, 0) !default; //0px
+$upload-padding-y: map.get($spacing-sizes, 0) !default; //0px
+
+$upload-inner-padding-x: map.get($spacing-sizes, 3) !default; //12px
+$upload-inner-padding-y: map.get($spacing-sizes, 3) !default; //12px
+
+$upload-large-inner-padding-x: map.get($spacing-sizes, 5) !default; //20px
+$upload-large-inner-padding-y: map.get($spacing-sizes, 5.5) !default; //22px
+
+$upload-border-radius: borderRadius.$border-radius !default;
+$upload-border-width: var(--#{config.$prefix}border-width) !default;
+$upload-border-color: var(--#{config.$prefix}primary-border-subtle) !default;
+$upload-bg: var(--#{config.$prefix}body-bg) !default;
+$upload-hover-bg: null !default;
+
+$upload-icon-size: map.get($spacing-sizes, 8) !default; //32px
+$upload-icon-padding: map.get($spacing-sizes, 0) !default; //0px
+$upload-icon-bg: var(--#{config.$prefix}body-bg) !default;
+
+$upload-title-font-size: typography.$font-size-lg !default;
+$upload-title-font-weight: typography.$headings-font-weight !default;
+$upload-title-color: var(--#{config.$prefix}body-color) !default;
+$upload-title-margin-top: map.get($spacing-sizes, 2) !default; //8px
+$upload-title-margin-bottom: map.get($spacing-sizes, 2) !default; //8px
+$upload-text-opacity: 0.8 !default; //0.8 - opacity of the text
+$upload-text-font-size: typography.$font-size-sm !default;
+$upload-text-font-weight: typography.$font-weight-normal !default;
+$upload-text-color: var(--#{config.$prefix}body-color) !default;
+$upload-text-margin-top: map.get($spacing-sizes, 4) !default; //4px
+$upload-text-margin-bottom: map.get($spacing-sizes, 4) !default; //16px
+$upload-btn-margin-top: map.get($spacing-sizes, 5) !default; //20px
+$upload-btn-margin-left: map.get($spacing-sizes, 4) !default; //16px
+
+$upload-content-margin-left: map.get($spacing-sizes, 4) !default; //16px
+
+$upload-helper-text-font-size: typography.$font-size-sm !default;
+$upload-helper-text-font-weight: typography.$font-weight-normal !default;
+$upload-helper-text-color: var(--#{config.$prefix}body-color) !default;
+$upload-helper-text-margin-top: map.get($spacing-sizes, 2) !default; //8px
+$upload-helper-text-opacity: 0.7 !default; //0.7 - opacity of the helper text
+$upload-disabled-opacity: 0.5 !default;
+
+$upload-loader-padding-x: map.get($spacing-sizes, 3) !default; //12px
+$upload-loader-padding-y: map.get($spacing-sizes, 3) !default; //12px
+$upload-loader-bg-opacity: 1 !default;
+$upload-loader-border-radius: $upload-border-radius !default;
+$upload-loader-border-width: $upload-border-width !default;
+$upload-loader-border-color: $upload-border-color !default;
+$upload-loader-margin-top: map.get($spacing-sizes, 5) !default; //20px
+$upload-loader-title-color: var(--#{config.$prefix}body-color) !default;
+$upload-loader-title-font-size: typography.$font-size-sm !default;
+$upload-loader-title-font-weight: typography.$font-weight-normal !default;
+$upload-loader-text-color: var(--#{config.$prefix}tertiary-text-emphasis) !default;
+$upload-loader-text-font-size: typography.$font-size-sm !default;
+$upload-loader-text-margin-top: 5px !default;
+$upload-loader-bar-height: 10px !default;
+$upload-loader-bar-margin-top: map.get($spacing-sizes, 'px-10') !default; //10px
+$upload-loader-control-icon-size: map.get($spacing-sizes, 5) !default; //20px
+$upload-loader-contorl-color: var(--#{config.$prefix}body-color) !default;
+
+$upload-loader-progress-color: var(--#{config.$prefix}primary) !default;
+$upload-loader-success-color: var(--#{config.$prefix}success) !default;
+$upload-loader-error-color: var(--#{config.$prefix}error) !default;

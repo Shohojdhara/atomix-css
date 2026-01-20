@@ -1,0 +1,23 @@
+@use 'sass:map';
+@use './settings.spacing' as *;
+@use 'settings.typography' as typography;
+@use 'settings.config' as config;
+
+$sectionintro-padding-x: map.get($spacing-sizes, 0) !default; //0px
+$sectionintro-padding-y: map.get($spacing-sizes, 10) !default; //40px
+
+$sectionintro-title-font-size: typography.$h1-font-size !default;
+$sectionintro-text-font-size: typography.$font-size-base !default;
+
+$sectionintro-title-color: var(--#{config.$prefix}body-color) !default;
+$sectionintro-text-color: var(--#{config.$prefix}body-color) !default;
+
+$sectionintro-title-font-weight: typography.$font-weight-bold !default;
+$sectionintro-text-font-weight: typography.$font-weight-normal !default;
+
+$sectionintro-label-margin-bottom: map.get($spacing-sizes, 3) !default; //12px
+$sectionintro-text-margin-top: map.get($spacing-sizes, 3) !default; //12px
+$sectionintro-actions-margin-top: map.get($spacing-sizes, 3) !default; //12px
+$sectionintro-actions-inner-gap: map.get($spacing-sizes, 3) !default; //12px
+
+$sectionintro-width: 648px !default;

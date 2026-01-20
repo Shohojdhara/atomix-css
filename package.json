@@ -1,0 +1,48 @@
+{
+  "name": "@shohojdhara/atomix-css",
+  "version": "1.0.0",
+  "description": "Standalone CSS framework extracted from Atomix Design System",
+  "main": "dist/atomix-styles.min.css",
+  "style": "dist/atomix-styles.css",
+  "scripts": {
+    "build": "sass styles/index.scss dist/atomix-styles.css --style expanded",
+    "build:min": "sass styles/index.scss dist/atomix-styles.min.css --style compressed",
+    "build:all": "npm run build && npm run build:min",
+    "watch": "sass --watch styles/index.scss dist/atomix-styles.css",
+    "lint": "stylelint \"styles/**/*.scss\"",
+    "lint:fix": "stylelint \"styles/**/*.scss\" --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "dist/",
+    "styles/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "css",
+    "framework",
+    "design-system",
+    "responsive",
+    "utilities",
+    "components",
+    "scss",
+    "itcss"
+  ],
+  "author": "Limon Khan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shohojdhara/atomix.git",
+    "directory": "packages/atomix-styles"
+  },
+  "bugs": {
+    "url": "https://github.com/Shohojdhara/atomix/issues"
+  },
+  "homepage": "https://github.com/Shohojdhara/atomix#readme",
+  "devDependencies": {
+    "sass": "^1.70.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard-scss": "^13.0.0"
+  }
+}

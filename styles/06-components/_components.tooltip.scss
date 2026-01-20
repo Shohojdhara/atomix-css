@@ -1,0 +1,105 @@
+@use '../01-settings/settings.config' as *;
+@use '../01-settings/settings.tooltip' as *;
+@use '../02-tools/tools.rem' as *;
+@use '../02-tools/tools.size' as *;
+@use '../02-tools/tools.background' as *;
+@use '../01-settings/settings.z-layers' as *;
+
+.c-tooltip {
+  $root: &;
+
+  --#{$prefix}tooltip-max-width: #{rem($tooltip-max-width)};
+  --#{$prefix}tooltip-padding-x: #{rem($tooltip-padding-x)};
+  --#{$prefix}tooltip-padding-y: #{rem($tooltip-padding-y)};
+  --#{$prefix}tooltip-bg: #{$tooltip-bg};
+  --#{$prefix}tooltip-font-size: #{$tooltip-font-size};
+  --#{$prefix}tooltip-font-weight: #{$tooltip-font-weight};
+  --#{$prefix}tooltip-color: #{$tooltip-color};
+  --#{$prefix}tooltip-border-radius: #{$tooltip-border-radius};
+  --#{$prefix}tooltip-border-width: #{$tooltip-border-width};
+  --#{$prefix}tooltip-border-color: #{$tooltip-border-color};
+  --#{$prefix}tooltip-box-shadow: #{$tooltip-box-shadow};
+  --#{$prefix}tooltip-arrow-size: #{rem($tooltip-arrow-size)};
+  --#{$prefix}tooltip-offset: #{rem($tooltip-arrow-size)}; // Default offset
+  --#{$prefix}z-index-tooltip: #{$z-index-tooltip};
+
+  position: absolute;
+  width: max-content;
+  height: max-content;
+  max-width: var(--#{$prefix}tooltip-max-width);
+  pointer-events: none; // Wrapper shouldn't block clicks, but content might
+  z-index: var(--#{$prefix}z-index-tooltip);
+
+  &__content {
+    position: relative;
+    color: var(--#{$prefix}tooltip-color);
+    font-size: var(--#{$prefix}tooltip-font-size);
+    font-weight: var(--#{$prefix}tooltip-font-weight);
+    padding: var(--#{$prefix}tooltip-padding-y) var(--#{$prefix}tooltip-padding-x);
+    @include dynamic-background(var(--#{$prefix}tooltip-bg));
+    border-radius: var(--#{$prefix}tooltip-border-radius);
+    box-shadow: var(--#{$prefix}tooltip-box-shadow);
+    z-index: 2;
+    opacity: 0;
+    pointer-events: auto; // Allow interaction with tooltip content
+
+    // Animation
+    transition:
+      opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Initial states for animation based on position would be complex to do purely generically here without separate classes
+    // So we stick to a simple scale/fade
+    transform: scale(0.95);
+
+    &.is-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+    width: var(--#{$prefix}tooltip-arrow-size);
+    height: var(--#{$prefix}tooltip-arrow-size);
+    border-radius: calc(
+      (var(--#{$prefix}tooltip-arrow-size) - var(--#{$prefix}tooltip-border-radius)) / 2
+    );
+    @include dynamic-background(var(--#{$prefix}tooltip-bg));
+    z-index: 1;
+    transform: rotate(45deg);
+  }
+
+  &--left &__arrow,
+  &--right &__arrow {
+    transform: rotate(45deg);
+  }
+
+  &--top &__arrow {
+    transform: rotate(45deg);
+  }
+
+  &--bottom &__arrow {
+    transform: rotate(225deg);
+  }
+
+  &--glass {
+    z-index: unset;
+    #{$root}__content {
+      @include dynamic-background(
+        var(--#{$prefix}tooltip-bg),
+        $background-transparency-enable: true,
+        $transparency: 0.4
+      );
+    }
+    #{$root}__arrow {
+      @include dynamic-background(
+        var(--#{$prefix}tooltip-bg),
+        $background-transparency-enable: true,
+        $transparency: 0.4
+      );
+      clip-path: polygon(0 100%, 100% 100%, 100% 0);
+      backdrop-filter: var(--atomix-glass-container-backdrop);
+    }
+  }
+}

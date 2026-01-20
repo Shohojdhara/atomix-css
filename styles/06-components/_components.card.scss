@@ -1,0 +1,459 @@
+@use 'sass:map';
+@use '../01-settings/settings.config' as *;
+@use '../01-settings/settings.card' as *;
+@use '../01-settings/settings.spacing' as spacing;
+@use '../01-settings/settings.border-radius' as *;
+@use '../01-settings/settings.design-tokens' as maps;
+@use '../02-tools/tools.rem' as *;
+@use '../02-tools/tools.animations' as *;
+@use '../02-tools/tools.object-fit' as *;
+@use '../02-tools/tools.size' as *;
+@use '../02-tools/tools.background' as *;
+
+.c-card {
+  $root: &;
+  --#{$prefix}card-spacer-y: #{rem($card-spacer-y)};
+  --#{$prefix}card-spacer-x: #{rem($card-spacer-x)};
+  --#{$prefix}card-row-spacer-y: #{rem($card-row-spacer-y)};
+  --#{$prefix}card-row-spacer-x: #{rem($card-row-spacer-x)};
+  --#{$prefix}card-title-spacer-y: #{rem($card-title-spacer-y)};
+  --#{$prefix}card-action-spacer-y: #{rem($card-action-spacer-y)};
+  --#{$prefix}card-header-spacer-y: #{rem($card-header-spacer-y)};
+  --#{$prefix}card-title-color: #{$card-title-color};
+  --#{$prefix}card-title-font-size: #{$card-title-font-size};
+  --#{$prefix}card-text-color: #{$card-text-color};
+  --#{$prefix}card-text-font-size: #{$card-text-font-size};
+  --#{$prefix}card-border-color: #{$card-border-color};
+  --#{$prefix}card-border-width: #{$card-border-width};
+  --#{$prefix}card-border-radius: #{$card-border-radius};
+  --#{$prefix}card-image-border-radius: #{$card-image-border-radius};
+  --#{$prefix}card-boxshadow: #{$card-boxshadow};
+  --#{$prefix}card-height: #{$card-height};
+  --#{$prefix}card-bg: #{$card-bg};
+  --#{$prefix}card-bg-hover: #{$card-bg-hover};
+  --#{$prefix}card-icon-size: #{rem($card-icon-size)};
+  --#{$prefix}card-icon-padding: #{rem($card-icon-padding)};
+  --#{$prefix}card-icon-bg: #{$card-icon-bg};
+  --#{$prefix}card-icon-color: #{$card-icon-color};
+  --#{$prefix}card-width: #{$card-width};
+
+  width: 100%;
+  max-width: var(--#{$prefix}card-width);
+  padding: var(--#{$prefix}card-spacer-y) var(--#{$prefix}card-spacer-x);
+  border: var(--#{$prefix}card-border-width) solid var(--#{$prefix}card-border-color);
+  border-radius: var(--#{$prefix}card-border-radius);
+  @include basic-transition();
+
+  @include dynamic-background(var(--#{$prefix}card-bg));
+
+  // Link card support - ensure anchor elements behave like block elements
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  // Reset anchor element default styles when card is used as a link
+  // This needs higher specificity to override global link styles
+  &[href] {
+    display: block;
+    text-decoration: none !important;
+    color: inherit !important;
+    cursor: pointer;
+
+    &:hover,
+    &:focus,
+    &:visited,
+    &:active {
+      text-decoration: none !important;
+      color: inherit !important;
+    }
+  }
+
+  &__header {
+    margin-bottom: var(--#{$prefix}card-header-spacer-y);
+  }
+
+  &__image {
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--#{$prefix}card-image-border-radius);
+    @include object-fit(cover);
+  }
+
+  &__body {
+    position: relative;
+  }
+
+  &__title {
+    color: var(--#{$prefix}card-title-color);
+    font-size: var(--#{$prefix}card-title-font-size);
+    margin-bottom: var(--#{$prefix}card-title-spacer-y);
+  }
+
+  &__text {
+    color: var(--#{$prefix}card-text-color);
+    font-size: var(--#{$prefix}card-text-font-size);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--#{$prefix}card-action-spacer-y);
+    margin-top: var(--#{$prefix}card-action-spacer-y);
+  }
+
+  &__icon {
+    display: inline-flex;
+    font-size: var(--#{$prefix}card-icon-size);
+    color: var(--#{$prefix}card-icon-color);
+    background-color: var(--#{$prefix}card-icon-bg);
+    padding: var(--#{$prefix}card-icon-padding);
+    border-radius: $border-radius-pill;
+  }
+
+  &__footer {
+    margin-top: var(--#{$prefix}card-spacer-y);
+    padding-top: var(--#{$prefix}card-spacer-y);
+    border-top: 1px solid var(--#{$prefix}card-border-color);
+
+    // Footer alignment modifiers
+    &--align-start {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    &--align-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &--align-end {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    &--align-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  // Body scrollable modifier
+  &__body--scrollable {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  @if ($card-hover ==true) {
+    &:hover {
+      @include dynamic-background(var(--#{$prefix}card-bg-hover));
+    }
+  }
+
+  &:focus,
+  &.is-active {
+    --#{$prefix}card-border-color: var(--#{$prefix}brand-border-subtle);
+  }
+
+  &--row {
+    display: flex;
+    padding: var(--#{$prefix}card-row-spacer-y) var(--#{$prefix}card-row-spacer-x);
+
+    #{$root} {
+      &__header {
+        margin-bottom: 0;
+      }
+
+      &__body {
+        flex: 1;
+        padding-left: var(--#{$prefix}card-row-spacer-x);
+        padding-top: 0;
+      }
+
+      &__image {
+        flex: 1;
+        @include square(100%);
+        max-width: none;
+        @include object-fit(cover);
+      }
+    }
+  }
+
+  &--flat {
+    padding: 0;
+
+    #{$root}__body {
+      padding: var(--#{$prefix}card-row-spacer-y) var(--#{$prefix}card-row-spacer-x);
+    }
+
+    #{$root}__image {
+      border-radius: 0;
+    }
+
+    #{$root}__footer {
+      padding: var(--#{$prefix}card-row-spacer-y) var(--#{$prefix}card-row-spacer-x);
+      padding-top: 0;
+    }
+  }
+
+
+
+  &--sm {
+    --#{$prefix}card-spacer-y: #{rem(map.get(spacing.$spacing-sizes, 2))}; // 8px
+    --#{$prefix}card-spacer-x: #{rem(map.get(spacing.$spacing-sizes, 2))}; // 8px
+    --#{$prefix}card-title-font-size: var(--#{$prefix}font-size-sm);
+    --#{$prefix}card-text-font-size: var(--#{$prefix}font-size-xs);
+  }
+
+  // &--md is the default size, no modifier needed
+
+  &--lg {
+    --#{$prefix}card-spacer-y: #{rem(map.get(spacing.$spacing-sizes, 6))}; // 24px
+    --#{$prefix}card-spacer-x: #{rem(map.get(spacing.$spacing-sizes, 6))}; // 24px
+    --#{$prefix}card-title-font-size: var(--#{$prefix}font-size-lg);
+    --#{$prefix}card-text-font-size: var(--#{$prefix}font-size-base);
+  }
+
+  &--filled {
+    // Default appearance - solid background
+    @include dynamic-background(var(--#{$prefix}card-bg));
+  }
+
+
+  &--glass {
+    max-width: none;
+    @include dynamic-background(var(--#{$prefix}card-bg), $background-transparency-enable: true);
+  }
+
+  &--outlined {
+    background-color: transparent;
+    border-width: var(--#{$prefix}card-border-width);
+  }
+
+  &--ghost {
+    background-color: transparent;
+    border: none;
+  }
+
+  &--elevated {
+    box-shadow: var(--#{$prefix}box-shadow-md);
+  }
+
+  &--elevation-none {
+    box-shadow: none;
+  }
+
+  &--elevation-sm {
+    box-shadow: var(--#{$prefix}box-shadow-sm);
+  }
+
+  &--elevation-md {
+    box-shadow: var(--#{$prefix}box-shadow-md);
+  }
+
+  &--elevation-lg {
+    box-shadow: var(--#{$prefix}box-shadow-lg);
+  }
+
+  &--elevation-xl {
+    box-shadow: var(--#{$prefix}box-shadow-xl);
+  }
+
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &--loading {
+    position: relative;
+    pointer-events: none;
+    user-select: none;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--#{$prefix}card-bg-hover);
+      backdrop-filter: blur(1px);
+      z-index: 1;
+      border-radius: var(--#{$prefix}card-border-radius);
+    }
+
+    // Dark theme support
+    [data-theme='dark'] &,
+    &.dark {
+      &::before {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+
+  &--selected {
+    --#{$prefix}card-border-color: var(--#{$prefix}brand-border-subtle);
+    --#{$prefix}card-border-width: 2px;
+    box-shadow: var(--#{$prefix}box-shadow-md);
+  }
+
+  &--interactive {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover:not(&--disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--#{$prefix}box-shadow-lg);
+    }
+
+    &:active:not(&--disabled) {
+      transform: translateY(0);
+    }
+  }
+
+  &--hoverable {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover:not(&--disabled) {
+      transform: translateY(-2px);
+    }
+
+    &:active:not(&--disabled) {
+      transform: translateY(0);
+    }
+
+    // Hover elevation modifiers
+    &--hover-elevation-none:hover:not(&--disabled) {
+      box-shadow: none;
+    }
+
+    &--hover-elevation-sm:hover:not(&--disabled) {
+      box-shadow: var(--#{$prefix}box-shadow-sm);
+    }
+
+    &--hover-elevation-md:hover:not(&--disabled) {
+      box-shadow: var(--#{$prefix}box-shadow-md);
+    }
+
+    &--hover-elevation-lg:hover:not(&--disabled) {
+      box-shadow: var(--#{$prefix}box-shadow-lg);
+    }
+
+    &--hover-elevation-xl:hover:not(&--disabled) {
+      box-shadow: var(--#{$prefix}box-shadow-xl);
+    }
+  }
+
+  @each $color, $value in maps.$theme-colors {
+    &--#{$color} {
+      @if ($color =='primary') {
+        --#{$prefix}card-bg: var(--#{$prefix}brand-bg-subtle);
+        --#{$prefix}card-bg-hover: var(--#{$prefix}brand-bg-subtle);
+        --#{$prefix}card-border-color: var(--#{$prefix}brand-border-subtle);
+        --#{$prefix}card-title-color: var(--#{$prefix}brand-text-emphasis);
+        --#{$prefix}card-icon-bg: var(--#{$prefix}brand-text-emphasis);
+        --#{$prefix}card-icon-color: var(--#{$prefix}brand-bg-subtle);
+      }
+
+      @else if ($color =='dark') {
+        --#{$prefix}card-bg: var(--#{$prefix}dark);
+        --#{$prefix}card-bg-hover: var(--#{$prefix}dark-hover);
+        --#{$prefix}card-border-color: var(--#{$prefix}dark);
+        --#{$prefix}card-title-color: var(--#{$prefix}light);
+        --#{$prefix}card-text-color: var(--#{$prefix}light);
+        --#{$prefix}card-icon-bg: var(--#{$prefix}light);
+        --#{$prefix}card-icon-color: var(--#{$prefix}dark);
+      }
+
+      @else if ($color =='light') {
+        --#{$prefix}card-bg: var(--#{$prefix}light);
+        --#{$prefix}card-bg-hover: var(--#{$prefix}light-hover);
+        --#{$prefix}card-border-color: var(--#{$prefix}light);
+        --#{$prefix}card-title-color: var(--#{$prefix}dark);
+        --#{$prefix}card-text-color: var(--#{$prefix}dark);
+        --#{$prefix}card-icon-bg: var(--#{$prefix}dark);
+        --#{$prefix}card-icon-color: var(--#{$prefix}light);
+      }
+
+      @else {
+        --#{$prefix}card-bg: var(--#{$prefix}#{$color}-bg-subtle);
+        --#{$prefix}card-bg-hover: var(--#{$prefix}#{$color}-bg-subtle);
+        --#{$prefix}card-border-color: var(--#{$prefix}#{$color}-border-subtle);
+        --#{$prefix}card-title-color: var(--#{$prefix}#{$color}-text-emphasis);
+        --#{$prefix}card-icon-bg: var(--#{$prefix}#{$color}-text-emphasis);
+        --#{$prefix}card-icon-color: var(--#{$prefix}#{$color}-bg-subtle);
+      }
+    }
+  }
+
+  &__loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    border-radius: var(--#{$prefix}card-border-radius);
+    pointer-events: none;
+  }
+
+  &__spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 4px solid;
+    border-color: var(--#{$prefix}border-primary, rgba(0, 0, 0, 0.15));
+    border-top-color: var(--#{$prefix}brand-text-emphasis, var(--#{$prefix}primary));
+    border-right-color: var(--#{$prefix}brand-text-emphasis, var(--#{$prefix}primary));
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    background-color: transparent;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: block;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--#{$prefix}brand-border-subtle);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &--interactive:hover:not(&--disabled),
+    &--hoverable:hover:not(&--disabled) {
+      transform: none;
+    }
+
+    &__spinner {
+      animation: none;
+      border-top-color: transparent;
+    }
+  }
+
+  @media (prefers-contrast: high) {
+    border-width: 2px;
+
+    &--selected {
+      border-width: 3px;
+    }
+  }
+}
+
+.is-elevated {
+  .c-card {
+    box-shadow: var(--#{$prefix}box-shadow-lg, 0 16px 48px rgba(0, 0, 0, 0.175));
+    z-index: 1;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

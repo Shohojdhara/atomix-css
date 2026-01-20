@@ -1,0 +1,17 @@
+@use 'sass:map';
+@use './settings.spacing' as *;
+@use 'settings.config' as config;
+@use 'settings.typography' as typography;
+@use 'settings.border-radius' as border-radius;
+
+$countdown-color: var(--#{config.$prefix}body-color) !default;
+$countdown-font-size: typography.$font-size-base !default;
+$countdown-font-weight: typography.$font-weight-medium !default;
+$countdown-focused-time-font-size: typography.$font-size-lg !default;
+$countdown-focused-label-font-size: typography.$font-size-xs !default;
+$countdown-focused-border-radius: border-radius.$border-radius !default;
+$countdown-focused-bg: var(--#{config.$prefix}secondary-bg-subtle) !default;
+$countdown-item-padding-x: map.get($spacing-sizes, 3) !default; //12px
+$countdown-item-padding-y: map.get($spacing-sizes, 2) !default; //8px
+$countdown-items-gap: map.get($spacing-sizes, 1) !default; //4px
+$countdown-focused-items-gap: map.get($spacing-sizes, 2) !default; //8px
