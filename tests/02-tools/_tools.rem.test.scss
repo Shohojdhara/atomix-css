@@ -1,0 +1,29 @@
+@use 'sass-true' as *;
+@use '../../styles/02-tools/tools.rem' as tools;
+
+@include describe('rem() function') {
+  @include it('Returns null when value is null') {
+    @include assert-equal(tools.rem(null), null);
+  }
+
+  @include it('Returns value as is when not a number') {
+    @include assert-equal(tools.rem('string'), 'string');
+    @include assert-equal(tools.rem(true), true);
+  }
+
+  @include it('Converts px values to rem') {
+    @include assert-equal(tools.rem(16px), 1rem);
+    @include assert-equal(tools.rem(32px), 2rem);
+    @include assert-equal(tools.rem(24px), 1.5rem);
+  }
+
+  @include it('Returns other units as is') {
+    @include assert-equal(tools.rem(1rem), 1rem);
+    @include assert-equal(tools.rem(50%), 50%);
+    @include assert-equal(tools.rem(10em), 10em);
+  }
+
+  @include it('Returns unitless numbers as is') {
+     @include assert-equal(tools.rem(16), 16);
+  }
+}
