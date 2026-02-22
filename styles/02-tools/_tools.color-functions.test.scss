@@ -1,0 +1,35 @@
+@use 'sass-true' as *;
+@use 'sass:meta';
+@use 'tools.color-functions' as tools;
+
+@include describe('tools.color-functions') {
+  @include describe('add-var()') {
+    @include it('should return the sum of two numbers') {
+      @include assert-equal(
+        tools.add-var(10px, 20px),
+        30px
+      );
+    }
+
+    @include it('should return a calc() expression when the first value is a variable') {
+      @include assert-equal(
+        meta.inspect(tools.add-var(var(--a), 10px)),
+        meta.inspect(calc(var(--a) + 10px))
+      );
+    }
+
+    @include it('should return a calc() expression when the second value is a variable') {
+      @include assert-equal(
+        meta.inspect(tools.add-var(10px, var(--b))),
+        meta.inspect(calc(10px + var(--b)))
+      );
+    }
+
+    @include it('should return a calc() expression when both values are variables') {
+      @include assert-equal(
+        meta.inspect(tools.add-var(var(--a), var(--b))),
+        meta.inspect(calc(var(--a) + var(--b)))
+      );
+    }
+  }
+}
