@@ -65,7 +65,7 @@ $css-var: map.get($utility, css-var);
   $escaped-key: null;
 
   @if $key {
-    $escaped-key: _escape-key($key);
+    $escaped-key: escape-key($key);
   }
 
   @if map.get($utility, class)==null {
@@ -220,7 +220,7 @@ $css-var: map.get($utility, css-var);
 }
 
 // Helper function to escape keys for safe CSS class names
-@function _escape-key($key) {
+@function escape-key($key) {
   $key-str: #{$key};
   $escaped: '';
   $len: string.length($key-str);
