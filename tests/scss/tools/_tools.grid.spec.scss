@@ -1,0 +1,43 @@
+@use 'sass-true' as *;
+@use 'sass:math';
+@use '../../../styles/02-tools/tools.grid' as tools-grid;
+
+@include describe('Grid Tools') {
+  @include describe('make-col-offset') {
+    @include it('sets margin-left when size > 0') {
+      @include assert {
+        @include output {
+          @include tools-grid.make-col-offset(1, 12);
+        }
+
+        @include expect {
+          margin-left: math.percentage(math.div(1, 12));
+        }
+      }
+    }
+
+    @include it('sets margin-left to 0 when size is 0') {
+      @include assert {
+        @include output {
+          @include tools-grid.make-col-offset(0, 12);
+        }
+
+        @include expect {
+          margin-left: 0;
+        }
+      }
+    }
+
+    @include it('sets margin-left to 0 when size is negative') {
+      @include assert {
+        @include output {
+          @include tools-grid.make-col-offset(-1, 12);
+        }
+
+        @include expect {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
