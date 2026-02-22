@@ -1,0 +1,39 @@
+@use 'true' as *;
+@use '02-tools/tools.utility-api' as utility-api;
+
+@include describe('Utility API') {
+  @include describe('escape-key') {
+    @include it('should return the key as is if it has no special characters') {
+      @include assert-equal(utility-api.escape-key('blue'), 'blue');
+    }
+
+    @include it('should escape dots in the key') {
+      @include assert-equal(utility-api.escape-key('1.5'), '1\\.5');
+    }
+
+    @include it('should escape multiple dots in the key') {
+      @include assert-equal(utility-api.escape-key('1.5.0'), '1\\.5\\.0');
+    }
+
+    @include it('should escape dots in mixed strings') {
+      @include assert-equal(utility-api.escape-key('p-1.5'), 'p-1\\.5');
+    }
+
+    @include it('should handle integer input') {
+      @include assert-equal(utility-api.escape-key(100), '100');
+    }
+
+    @include it('should return empty string for null input') {
+      @include assert-equal(utility-api.escape-key(null), '');
+    }
+
+    @include it('should return empty string for empty string input') {
+      @include assert-equal(utility-api.escape-key(''), '');
+    }
+
+    @include it('should handle other characters without escaping') {
+      @include assert-equal(utility-api.escape-key('red-blue'), 'red-blue');
+      @include assert-equal(utility-api.escape-key('@home'), '@home');
+    }
+  }
+}
