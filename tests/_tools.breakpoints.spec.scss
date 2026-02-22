@@ -1,0 +1,31 @@
+@use 'sass-true' as *;
+@use '../styles/02-tools/tools.breakpoints' as breakpoints;
+
+$test-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px
+);
+
+@include describe('breakpoint-min function') {
+  @include it('returns null for the smallest breakpoint (0)') {
+    @include assert-equal(
+      breakpoints.breakpoint-min('xs', $test-breakpoints),
+      null
+    );
+  }
+
+  @include it('returns the correct value for a non-zero breakpoint') {
+    @include assert-equal(
+      breakpoints.breakpoint-min('sm', $test-breakpoints),
+      576px
+    );
+  }
+
+  @include it('returns null for an invalid breakpoint') {
+    @include assert-equal(
+      breakpoints.breakpoint-min('unknown', $test-breakpoints),
+      null
+    );
+  }
+}
