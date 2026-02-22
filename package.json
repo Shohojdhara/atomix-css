@@ -2,6 +2,9 @@
   "name": "@shohojdhara/atomix-css",
   "version": "1.0.0",
   "description": "Standalone CSS framework extracted from Atomix Design System",
+  "engines": {
+    "node": ">=20"
+  },
   "main": "dist/atomix-styles.min.css",
   "style": "dist/atomix-styles.css",
   "scripts": {
