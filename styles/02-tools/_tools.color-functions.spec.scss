@@ -1,0 +1,31 @@
+@use 'true' as *;
+@use 'tools.color-functions' as tools;
+
+@include describe('shift-color function') {
+  @include it('tints color when weight is positive') {
+    // Start with an odd color value so when mixed 50% with white (255), it produces an integer
+    // 1 + 255 = 256. 256 / 2 = 128.
+    $color: rgb(1 1 1);
+    $weight: 50%;
+    $expected: rgb(128 128 128);
+
+    @include assert-equal(tools.shift-color($color, $weight), $expected);
+  }
+
+  @include it('shades color when weight is negative') {
+    // Start with an even color value so when mixed 50% with black (0), it produces an integer
+    // 200 + 0 = 200. 200 / 2 = 100.
+    $color: rgb(200 200 200);
+    $weight: -50%;
+    $expected: rgb(100 100 100);
+
+    @include assert-equal(tools.shift-color($color, $weight), $expected);
+  }
+
+  @include it('returns same color when weight is zero') {
+    $color: #00f;
+    $weight: 0%;
+
+    @include assert-equal(tools.shift-color($color, $weight), #0000ff);
+  }
+}
