@@ -1,0 +1,30 @@
+@use "true" as *;
+@use "../../styles/02-tools/tools.spacing" as spacing;
+
+@include describe('my mixin') {
+  @include it('sets margin top and bottom when both are provided') {
+    @include assert {
+      @include output {
+        @include spacing.my(1, 2);
+      }
+
+      @include expect {
+        margin-top: 0.25rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+
+  @include it('sets margin top and bottom when only top is provided') {
+    @include assert {
+      @include output {
+        @include spacing.my(1);
+      }
+
+      @include expect {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+}
