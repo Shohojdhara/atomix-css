@@ -1,0 +1,46 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'true' as *;
+@use '../tools.utility-api' as utility;
+
+@include describe('zip() function') {
+  @include it('should zip two lists of equal length into a map') {
+    $keys: ('a', 'b', 'c');
+    $values: (1, 2, 3);
+    $expected: ('a': 1, 'b': 2, 'c': 3);
+
+    @include assert-equal(utility.zip($keys, $values), $expected);
+  }
+
+  @include it('should handle keys list longer than values list') {
+    $keys: ('a', 'b', 'c');
+    $values: (1, 2);
+    $expected: ('a': 1, 'b': 2, 'c': null);
+
+    @include assert-equal(utility.zip($keys, $values), $expected);
+  }
+
+  @include it('should handle values list longer than keys list') {
+    $keys: ('a', 'b');
+    $values: (1, 2, 3);
+    $expected: ('a': 1, 'b': 2);
+
+    @include assert-equal(utility.zip($keys, $values), $expected);
+  }
+
+  @include it('should return an empty map when both lists are empty') {
+    $keys: ();
+    $values: ();
+    $expected: ();
+
+    @include assert-equal(utility.zip($keys, $values), $expected);
+  }
+
+  @include it('should zip single element lists') {
+    $keys: ('a');
+    $values: (1);
+    $expected: ('a': 1);
+
+    @include assert-equal(utility.zip($keys, $values), $expected);
+  }
+}
