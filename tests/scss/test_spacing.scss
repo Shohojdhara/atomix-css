@@ -1,0 +1,106 @@
+@use 'sass-true' as *;
+@use '../../styles/02-tools/tools.spacing' as spacing;
+
+@include describe('mx mixin') {
+  @include it('outputs margin-left and margin-right for a single value') {
+    @include assert {
+      @include output {
+        .test {
+          @include spacing.mx(1);
+        }
+      }
+
+      @include expect {
+        .test {
+          margin-right: 0.25rem;
+          margin-left: 0.25rem;
+        }
+      }
+    }
+  }
+
+  @include it('outputs distinct margin-left and margin-right for two values') {
+    @include assert {
+      @include output {
+        .test {
+          @include spacing.mx(1, 2);
+        }
+      }
+
+      @include expect {
+        .test {
+          margin-right: 0.25rem;
+          margin-left: 0.5rem;
+        }
+      }
+    }
+  }
+
+  @include it('outputs auto margins when passed auto') {
+    @include assert {
+      @include output {
+        .test {
+          @include spacing.mx('auto');
+        }
+      }
+
+      @include expect {
+        .test {
+          margin-right: auto;
+          margin-left: auto;
+        }
+      }
+    }
+  }
+
+  @include it('outputs 0 margins when passed 0') {
+    @include assert {
+      @include output {
+        .test {
+          @include spacing.mx(0);
+        }
+      }
+
+      @include expect {
+        .test {
+          margin-right: 0rem;
+          margin-left: 0rem;
+        }
+      }
+    }
+  }
+
+  @include it('outputs 0 margins when passed 0, 0') {
+    @include assert {
+      @include output {
+        .test {
+          @include spacing.mx(0, 0);
+        }
+      }
+
+      @include expect {
+        .test {
+          margin-right: 0rem;
+          margin-left: 0rem;
+        }
+      }
+    }
+  }
+
+  @include it('outputs margin-left and margin-right for auto, 1') {
+    @include assert {
+      @include output {
+        .test {
+          @include spacing.mx('auto', 1);
+        }
+      }
+
+      @include expect {
+        .test {
+          margin-right: auto;
+          margin-left: 0.25rem;
+        }
+      }
+    }
+  }
+}
