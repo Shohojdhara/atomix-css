@@ -1,0 +1,19 @@
+@use 'sass-true' as *;
+@use 'tools.color-functions' as tools;
+
+@include describe('add-var function') {
+  @include it('adds two numbers correctly') {
+    @include assert-equal(
+      tools.add-var(10px, 20px),
+      30px
+    );
+  }
+
+  @include it('handles CSS variables correctly') {
+    // Expects a valid calc expression
+    @include assert-equal(
+      #{tools.add-var(10px, var(--foo))},
+      "calc(10px + var(--foo))"
+    );
+  }
+}
