@@ -1,0 +1,76 @@
+@use "sass-true" as *;
+@use "../../styles/02-tools/tools.grid" as grid;
+
+@include describe("make-col mixin") {
+  @include it("calculates correct width for default 12 columns") {
+    @include assert {
+      @include output {
+        @include grid.make-col(6);
+      }
+      @include expect {
+        flex: 0 0 auto;
+        width: 50%;
+      }
+    }
+  }
+
+  @include it("calculates correct width for custom column count") {
+    @include assert {
+      @include output {
+        @include grid.make-col(2, 4);
+      }
+      @include expect {
+        flex: 0 0 auto;
+        width: 50%;
+      }
+    }
+  }
+
+  @include it("calculates correct width for another custom column count") {
+    @include assert {
+      @include output {
+        @include grid.make-col(1, 4);
+      }
+      @include expect {
+        flex: 0 0 auto;
+        width: 25%;
+      }
+    }
+  }
+
+  @include it("handles non-integer division correctly") {
+     @include assert {
+      @include output {
+        @include grid.make-col(4);
+      }
+      @include expect {
+        flex: 0 0 auto;
+        width: 33.3333333333%;
+      }
+    }
+  }
+
+  @include it("handles size greater than columns") {
+    @include assert {
+      @include output {
+        @include grid.make-col(13);
+      }
+      @include expect {
+        flex: 0 0 auto;
+        width: 108.3333333333%;
+      }
+    }
+  }
+
+  @include it("handles size equal to columns") {
+    @include assert {
+      @include output {
+        @include grid.make-col(12);
+      }
+      @include expect {
+        flex: 0 0 auto;
+        width: 100%;
+      }
+    }
+  }
+}
