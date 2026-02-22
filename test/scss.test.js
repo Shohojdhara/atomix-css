@@ -1,9 +1,9 @@
 const path = require('path');
-const glob = require('glob');
+const { globSync } = require('glob');
 const sassTrue = require('sass-true');
 
 describe('Sass', () => {
-  const sassTestFiles = glob.sync('styles/**/*.test.scss');
+  const sassTestFiles = globSync('styles/**/*.test.scss');
 
   sassTestFiles.forEach(file => {
     sassTrue.runSass({ describe, it }, file);
