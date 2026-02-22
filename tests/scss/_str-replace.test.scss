@@ -1,0 +1,39 @@
+@use 'sass-true' as *;
+@use '../../styles/02-tools/tools.utility-api' as tools;
+
+@include describe('str-replace function') {
+  @include it('replaces a substring') {
+    @include assert-equal(
+      tools.str-replace('hello world', 'world', 'universe'),
+      'hello universe'
+    );
+  }
+
+  @include it('replaces multiple occurrences') {
+    @include assert-equal(
+      tools.str-replace('hello world world', 'world', 'universe'),
+      'hello universe universe'
+    );
+  }
+
+  @include it('returns the original string if search string is not found') {
+    @include assert-equal(
+      tools.str-replace('hello world', 'foo', 'bar'),
+      'hello world'
+    );
+  }
+
+  @include it('handles empty replace string (removal)') {
+    @include assert-equal(
+      tools.str-replace('hello world', ' world', ''),
+      'hello'
+    );
+  }
+
+  @include it('handles special characters') {
+    @include assert-equal(
+      tools.str-replace('hello.world', '.', '-'),
+      'hello-world'
+    );
+  }
+}
