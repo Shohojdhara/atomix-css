@@ -1,0 +1,16 @@
+@use "sass-true" as *;
+@use "../../styles/02-tools/tools.utility-api" as tools;
+
+@include describe('get-breakpoint-infix') {
+  @include it('returns empty string when breakpoint is null') {
+    @include assert-equal(tools.get-breakpoint-infix(null), '');
+  }
+
+  @include it('returns breakpoint prefixed with hyphen when breakpoint is a string') {
+    @include assert-equal(tools.get-breakpoint-infix('md'), '-md');
+  }
+
+  @include it('returns breakpoint prefixed with hyphen when breakpoint is a number') {
+    @include assert-equal(tools.get-breakpoint-infix(100), '-100');
+  }
+}
