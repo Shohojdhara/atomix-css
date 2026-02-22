@@ -1,0 +1,43 @@
+@use 'sass:color';
+@use 'true' as *;
+@use '../styles/02-tools/tools.color-functions' as tools;
+
+@include describe('tools.color-functions') {
+  @include describe('tint-color') {
+    @include it('tints a color with white by a percentage') {
+      $color: #000000;
+      $weight: 40%;
+      $expected: #666666;
+      @include assert-equal(tools.tint-color($color, $weight), $expected);
+    }
+
+    @include it('returns the original color when weight is 0%') {
+      $color: #ff0000;
+      @include assert-equal(tools.tint-color($color, 0%), $color);
+    }
+
+    @include it('returns white when weight is 100%') {
+      $color: #0000ff;
+      @include assert-equal(tools.tint-color($color, 100%), #ffffff);
+    }
+  }
+
+  @include describe('shade-color') {
+    @include it('shades a color with black by a percentage') {
+      $color: #ffffff;
+      $weight: 40%;
+      $expected: #999999;
+      @include assert-equal(tools.shade-color($color, $weight), $expected);
+    }
+
+    @include it('returns the original color when weight is 0%') {
+      $color: #00ff00;
+      @include assert-equal(tools.shade-color($color, 0%), $color);
+    }
+
+    @include it('returns black when weight is 100%') {
+      $color: #ffff00;
+      @include assert-equal(tools.shade-color($color, 100%), #000000);
+    }
+  }
+}
