@@ -77,9 +77,7 @@
     &--#{$color} {
       @include btn-variant($color, $value);
     }
-  }
 
-  @each $color, $value in color-maps.$theme-colors {
     &--outline-#{$color} {
       @include btn-outline-variant($color);
     }
