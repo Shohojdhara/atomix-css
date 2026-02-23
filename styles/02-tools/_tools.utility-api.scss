@@ -30,11 +30,6 @@ $utility-defaults: (
   );
 $css-var: map.get($utility, css-var);
 
-// If the values are a list or string, convert it to a map
-@if meta.type-of($values)=='string' or meta.type-of($values)=='list' {
-  $values: zip($values, $values);
-}
-
 @each $key, $value in $values {
   $properties: map.get($utility, property);
   $property-class: map.get($utility, class);
