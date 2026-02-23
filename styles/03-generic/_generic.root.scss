@@ -27,8 +27,6 @@
     --#{config.$prefix}#{$color}: #{$value};
   }
 
-  $theme-colors-rgb: map-loop(color-maps.$theme-colors, to-rgb) !default;
-
   @each $color, $value in color-maps.$theme-colors {
     --#{config.$prefix}#{$color}-rgb: #{to-rgb($value)};
   }
