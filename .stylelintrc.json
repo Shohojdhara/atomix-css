@@ -5,6 +5,63 @@
   "rules": {
     "scss/dollar-variable-colon-space-after": "at-least-one-space",
     "scss/dollar-variable-colon-space-before": "never",
-    "no-descending-specificity": null
+    "no-descending-specificity": null,
+    "selector-class-pattern": [
+      "^[a-z]([a-z0-9-]+)?(__([a-z0-9]+-?)+)?(--([a-z0-9]+-?)+)?$",
+      {
+        "message": "Expected class selector to be kebab-case or BEM-style"
+      }
+    ],
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreKeywords": ["currentColor", "geometricPrecision", "optimizeLegibility", "BlinkMacSystemFont", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Arial", "SFMono-Regular", "Menlo", "Monaco", "Consolas"]
+      }
+    ],
+    "no-duplicate-selectors": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null,
+    "function-url-quotes": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "media-feature-range-notation": null,
+    "scss/operator-no-unspaced": null,
+    "rule-empty-line-before": null,
+    "scss/at-if-closing-brace-newline-after": null,
+    "scss/at-if-closing-brace-space-after": null,
+    "scss/at-else-empty-line-before": null,
+    "scss/load-no-partial-leading-underscore": null,
+    "at-rule-empty-line-before": null,
+    "length-zero-no-unit": null,
+    "declaration-empty-line-before": null,
+    "scss/at-mixin-argumentless-call-parentheses": null,
+    "font-family-no-missing-generic-family-keyword": null,
+    "scss/at-extend-no-missing-placeholder": null,
+    "scss/double-slash-comment-empty-line-before": null,
+    "selector-not-notation": null,
+    "shorthand-property-no-redundant-values": null,
+    "scss/dollar-variable-empty-line-before": null,
+    "scss/at-else-closing-brace-newline-after": null,
+    "scss/at-else-closing-brace-space-after": null,
+    "keyframes-name-pattern": null,
+    "color-hex-length": null,
+    "media-feature-name-no-vendor-prefix": null,
+    "number-max-precision": null,
+    "scss/comment-no-empty": null,
+    "scss/at-rule-conditional-no-parentheses": null,
+    "scss/at-else-if-parentheses-space-before": null,
+    "declaration-block-no-duplicate-properties": null,
+    "property-no-vendor-prefix": null,
+    "scss/operator-no-newline-after": null,
+    "custom-property-empty-line-before": null,
+    "scss/double-slash-comment-whitespace-inside": null,
+    "scss/dollar-variable-pattern": null,
+    "scss/no-global-function-names": null,
+    "selector-pseudo-element-colon-notation": null,
+    "no-empty-source": null,
+    "selector-no-vendor-prefix": null,
+    "scss/at-if-no-null": null,
+    "scss/at-function-pattern": null,
+    "import-notation": null,
+    "comment-empty-line-before": null
   }
 }
