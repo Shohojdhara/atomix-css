@@ -11,7 +11,7 @@
     "watch": "sass --watch styles/index.scss dist/atomix-styles.css",
     "lint": "stylelint \"styles/**/*.scss\"",
     "lint:fix": "stylelint \"styles/**/*.scss\" --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"No test specified\" && exit 0"
   },
   "files": [
     "dist/",
@@ -41,8 +41,9 @@
   },
   "homepage": "https://github.com/Shohojdhara/atomix#readme",
   "devDependencies": {
+    "postcss-selector-parser": "6.0.16",
     "sass": "^1.70.0",
-    "stylelint": "^16.0.0",
+    "stylelint": "^16.26.1",
     "stylelint-config-standard-scss": "^13.0.0"
   }
 }
