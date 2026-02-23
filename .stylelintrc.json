@@ -3,8 +3,8 @@
     "stylelint-config-standard-scss"
   ],
   "rules": {
-    "scss/dollar-variable-colon-space-after": "at-least-one-space",
-    "scss/dollar-variable-colon-space-before": "never",
+    "scss/dollar-variable-colon-space-after": null,
+    "scss/dollar-variable-colon-space-before": null,
     "no-descending-specificity": null,
     "selector-class-pattern": [
       "^[a-z]([a-z0-9-]+)?(__([a-z0-9]+-?)+)?(--([a-z0-9]+-?)+)?$",
