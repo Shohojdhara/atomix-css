@@ -21,4 +21,19 @@
 // @include fonts.font-face('Helvetica Neue Condensed', 'HelveticaNeue', 'HelveticaNeue-CondensedBold', $font-weight-bold, normal);
 // @include fonts.font-face('Helvetica Neue Condensed', 'HelveticaNeue', 'HelveticaNeue-CondensedBlack', $font-weight-black, normal);
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+// Import Roboto variable font locally
+@font-face {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('#{fonts.$assets-fonts-path}Roboto/Roboto-Variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('#{fonts.$assets-fonts-path}Roboto/Roboto-Italic-Variable.woff2') format('woff2');
+}
