@@ -11,7 +11,7 @@
     "watch": "sass --watch styles/index.scss dist/atomix-styles.css",
     "lint": "stylelint \"styles/**/*.scss\"",
     "lint:fix": "stylelint \"styles/**/*.scss\" --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"No unit tests, running build check...\" && npm run build"
   },
   "files": [
     "dist/",
