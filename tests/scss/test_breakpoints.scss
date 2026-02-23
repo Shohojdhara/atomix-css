@@ -1,0 +1,65 @@
+@use 'sass-true' as *;
+@use '../../styles/01-settings/settings.breakpoints' as breakpoints;
+@use '../../styles/02-tools/tools.breakpoints' as tools;
+
+@include describe('breakpoint-infix') {
+  @include it('returns a blank string for the smallest breakpoint (xs)') {
+    @include assert-equal(
+      tools.breakpoint-infix('xs'),
+      ''
+    );
+  }
+
+  @include it('returns a dash-prefixed name for non-smallest breakpoints') {
+    @include assert-equal(
+      tools.breakpoint-infix('sm'),
+      '-sm'
+    );
+    @include assert-equal(
+      tools.breakpoint-infix('md'),
+      '-md'
+    );
+    @include assert-equal(
+      tools.breakpoint-infix('lg'),
+      '-lg'
+    );
+    @include assert-equal(
+      tools.breakpoint-infix('xl'),
+      '-xl'
+    );
+    @include assert-equal(
+      tools.breakpoint-infix('xxl'),
+      '-xxl'
+    );
+  }
+
+  @include it('returns a blank string for null breakpoint names (unknown breakpoints)') {
+    @include assert-equal(
+      tools.breakpoint-infix('unknown'),
+      ''
+    );
+  }
+
+  @include it('works with a custom breakpoints map') {
+    $custom-breakpoints: (
+      small: 0,
+      medium: 500px,
+      large: 1000px
+    );
+
+    @include assert-equal(
+      tools.breakpoint-infix('small', $custom-breakpoints),
+      ''
+    );
+
+    @include assert-equal(
+      tools.breakpoint-infix('medium', $custom-breakpoints),
+      '-medium'
+    );
+
+    @include assert-equal(
+      tools.breakpoint-infix('large', $custom-breakpoints),
+      '-large'
+    );
+  }
+}
