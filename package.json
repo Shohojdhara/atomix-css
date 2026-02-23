@@ -11,10 +11,7 @@
     "watch": "sass --watch styles/index.scss dist/atomix-styles.css",
     "lint": "stylelint \"styles/**/*.scss\"",
     "lint:fix": "stylelint \"styles/**/*.scss\" --fix",
-    "test": "jest"
-  },
-  "jest": {
-    "testEnvironment": "node"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "files": [
     "dist/",

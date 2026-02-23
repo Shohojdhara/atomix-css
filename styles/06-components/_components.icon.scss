@@ -3,7 +3,6 @@
 @use '../02-tools/tools.rem' as *;
 
 // Icon component
-//
 // Styling for Phosphor Icons
 
 .c-icon {
@@ -66,7 +65,7 @@
 
   // Current color - inherits color from parent
   &--current {
-    color: currentColor;
+    color: currentcolor;
   }
 
   // Icon with text - adds spacing when used next to text
