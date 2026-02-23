@@ -4,15 +4,13 @@
 
 $Roboto: 'Roboto', sans-serif !default;
 
-$helvetica-neue:
-  'Helvetica Neue',
+$helvetica-neue: 'Helvetica Neue',
   Helvetica,
   Arial,
   sans-serif !default;
 
 // Stylelint: disable-next-line value-keyword-case
-$system-font-stack:
-  system-ui,
+$system-font-stack: system-ui,
   -apple-system,
   'Segoe UI',
   Roboto,
@@ -28,8 +26,7 @@ $system-font-stack:
 
 $font-family-base: $Roboto !default;
 $font-family-sans-serif: $Roboto !default;
-$font-family-monospace:
-  SFMono-Regular,
+$font-family-monospace: SFMono-Regular,
   Menlo,
   Monaco,
   Consolas,

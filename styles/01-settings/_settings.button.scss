@@ -58,8 +58,7 @@ $btn-link-border-color-hover: var(--#{$prefix}secondary-border-subtle) !default;
 
 $btn-inner-gap: map.get(spacing.$spacing-sizes, 2) !default;
 
-$btn-transition:
-  color 0.15s ease-in-out,
+$btn-transition: color 0.15s ease-in-out,
   background-color 0.15s ease-in-out,
   border-color 0.15s ease-in-out,
   box-shadow 0.15s ease-in-out !default;
