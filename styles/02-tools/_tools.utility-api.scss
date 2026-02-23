@@ -162,6 +162,13 @@ $css-var: map.get($utility, css-var);
 @mixin generate-responsive-utilities($utility, $breakpoints, $breakpoint-infix-generator) {
   $responsive: map.get($utility, responsive);
 
+  // If the values are a list or string, convert it to a map
+  $values: map.get($utility, values);
+  @if meta.type-of($values) == 'string' or meta.type-of($values) == 'list' {
+    $values: zip($values, $values);
+    $utility: map.merge($utility, (values: $values));
+  }
+
   @if $responsive {
     @each $breakpoint in map.keys($breakpoints) {
       $infix: call($breakpoint-infix-generator, $breakpoint);
