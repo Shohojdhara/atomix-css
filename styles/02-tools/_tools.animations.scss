@@ -72,34 +72,6 @@
   }
 }
 
-// Test case 1: Single animation (backward compatibility)
-// .test-single {
-//   @include animations.animations(
-//     'pulse-slow',
-//     $duration: 1.4s,
-//     $timing: linear
-//   );
-// }
-
-// Test case 2: Multiple animations
-// .test-multiple {
-//   @include animations.animations(
-//     ('pulse-slow', 'fade-in'),
-//     $duration: 1.4s,
-//     $timing: linear
-//   );
-// }
-
-// Test case 3: Multiple animations with different parameters
-// .test-multiple-different {
-//   @include animations.animations(
-//     'pulse-slow' 'fade-in' 'slide-up',
-//     $duration: 2s,
-//     $timing: ease-in-out,
-//     $iteration-count: infinite
-//   );
-// }
-
 @keyframes backgroundMoving {
   0% {
     background-position: 0 0%;
