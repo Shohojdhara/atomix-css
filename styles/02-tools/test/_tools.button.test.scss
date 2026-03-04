@@ -1,0 +1,88 @@
+@use 'true' as *;
+@use '../tools.button' as tools;
+@use '../../01-settings/settings.config' as config;
+@use '../../01-settings/settings.colors' as colors;
+@use 'sass:color';
+
+@include describe('btn-variant mixin') {
+  @include it('should output correct css variables for primary color') {
+    $color: 'primary';
+    $background: #007bff;
+    $border: #007bff;
+
+    @include assert {
+      @include output {
+        @include tools.btn-variant($color, $background, $border);
+      }
+
+      @include expect {
+        --#{config.$prefix}btn-color: var(--#{config.$prefix}white, #{colors.$white});
+        --#{config.$prefix}btn-bg: var(--#{config.$prefix}primary, #007bff);
+        --#{config.$prefix}btn-border-color: var(--#{config.$prefix}primary, #007bff);
+        --#{config.$prefix}btn-hover-color: var(--#{config.$prefix}white, #{colors.$white});
+        --#{config.$prefix}btn-hover-bg: var(--#{config.$prefix}primary-hover, #{color.scale(#007bff, $lightness: -15%)});
+        --#{config.$prefix}btn-hover-border-color: var(--#{config.$prefix}primary-hover, #{color.scale(#007bff, $lightness: -10%)});
+        --#{config.$prefix}btn-active-color: var(--#{config.$prefix}white, #{colors.$white});
+        --#{config.$prefix}btn-active-bg: var(--#{config.$prefix}primary-hover, #{color.scale(#007bff, $lightness: -20%)});
+        --#{config.$prefix}btn-active-border-color: var(--#{config.$prefix}primary-hover, #{color.scale(#007bff, $lightness: -25%)});
+        --#{config.$prefix}btn-disabled-color: var(--#{config.$prefix}white, #{colors.$white});
+        --#{config.$prefix}btn-disabled-bg: var(--#{config.$prefix}primary, #007bff);
+        --#{config.$prefix}btn-disabled-border-color: var(--#{config.$prefix}primary, #007bff);
+      }
+    }
+  }
+
+  @include it('should output correct css variables for light color') {
+    $color: 'light';
+    $background: #f8f9fa;
+    $border: #f8f9fa;
+
+    @include assert {
+      @include output {
+        @include tools.btn-variant($color, $background, $border);
+      }
+
+      @include expect {
+        --#{config.$prefix}btn-color: var(--#{config.$prefix}dark-text-emphasis, #{colors.$dark-text});
+        --#{config.$prefix}btn-bg: var(--#{config.$prefix}light, #f8f9fa);
+        --#{config.$prefix}btn-border-color: var(--#{config.$prefix}light, #f8f9fa);
+        --#{config.$prefix}btn-hover-color: var(--#{config.$prefix}dark-text-emphasis, #{colors.$dark-text});
+        --#{config.$prefix}btn-hover-bg: var(--#{config.$prefix}light-hover, #{color.scale(#f8f9fa, $lightness: -15%)});
+        --#{config.$prefix}btn-hover-border-color: var(--#{config.$prefix}light-hover, #{color.scale(#f8f9fa, $lightness: -10%)});
+        --#{config.$prefix}btn-active-color: var(--#{config.$prefix}white, #{colors.$white});
+        --#{config.$prefix}btn-active-bg: var(--#{config.$prefix}light-hover, #{color.scale(#f8f9fa, $lightness: -20%)});
+        --#{config.$prefix}btn-active-border-color: var(--#{config.$prefix}light-hover, #{color.scale(#f8f9fa, $lightness: -25%)});
+        --#{config.$prefix}btn-disabled-color: var(--#{config.$prefix}white, #{colors.$white});
+        --#{config.$prefix}btn-disabled-bg: var(--#{config.$prefix}light, #f8f9fa);
+        --#{config.$prefix}btn-disabled-border-color: var(--#{config.$prefix}light, #f8f9fa);
+      }
+    }
+  }
+
+  @include it('should output correct css variables for secondary color') {
+    $color: 'secondary';
+    $background: #6c757d;
+    $border: #6c757d;
+
+    @include assert {
+      @include output {
+        @include tools.btn-variant($color, $background, $border);
+      }
+
+      @include expect {
+        --#{config.$prefix}btn-color: var(--#{config.$prefix}dark-text-emphasis, #{colors.$dark-text});
+        --#{config.$prefix}btn-bg: var(--#{config.$prefix}secondary, #6c757d);
+        --#{config.$prefix}btn-border-color: var(--#{config.$prefix}secondary, #6c757d);
+        --#{config.$prefix}btn-hover-color: var(--#{config.$prefix}dark-text-emphasis, #{colors.$dark-text});
+        --#{config.$prefix}btn-hover-bg: var(--#{config.$prefix}secondary-hover, #{color.scale(#6c757d, $lightness: -15%)});
+        --#{config.$prefix}btn-hover-border-color: var(--#{config.$prefix}secondary-hover, #{color.scale(#6c757d, $lightness: -10%)});
+        --#{config.$prefix}btn-active-color: var(--#{config.$prefix}white, #{colors.$white});
+        --#{config.$prefix}btn-active-bg: var(--#{config.$prefix}secondary-hover, #{color.scale(#6c757d, $lightness: -20%)});
+        --#{config.$prefix}btn-active-border-color: var(--#{config.$prefix}secondary-hover, #{color.scale(#6c757d, $lightness: -25%)});
+        --#{config.$prefix}btn-disabled-color: var(--#{config.$prefix}white, #{colors.$white});
+        --#{config.$prefix}btn-disabled-bg: var(--#{config.$prefix}secondary, #6c757d);
+        --#{config.$prefix}btn-disabled-border-color: var(--#{config.$prefix}secondary, #6c757d);
+      }
+    }
+  }
+}
