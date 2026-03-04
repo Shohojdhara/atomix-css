@@ -1,0 +1,58 @@
+@use 'true' as *;
+
+// Testing the media-query approach
+// We configure the module before using it
+@use '../../01-settings/settings.color-mode' with (
+  $color-mode-type: 'media-query'
+);
+
+@use '../tools.color-mode' as tools;
+
+@include describe('color-mode mixin (media-query approach)') {
+  @include it('should output media query with default mode') {
+    @include assert {
+      @include output {
+        @include tools.color-mode {
+          color: black;
+        }
+      }
+      @include expect {
+        @media (prefers-color-scheme: light) {
+          color: black;
+        }
+      }
+    }
+  }
+
+  @include it('should output media query with custom mode') {
+    @include assert {
+      @include output {
+        @include tools.color-mode(dark) {
+          color: white;
+        }
+      }
+      @include expect {
+        @media (prefers-color-scheme: dark) {
+          color: white;
+        }
+      }
+    }
+  }
+
+  @include it('should wrap content in :root when $root is true') {
+    @include assert {
+      @include output {
+        @include tools.color-mode(dark, true) {
+          --my-var: white;
+        }
+      }
+      @include expect {
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --my-var: white;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+@use 'true' as *;
+
+// Testing the data-attribute approach (default)
+@use '../tools.color-mode' as tools;
+@use '../../01-settings/settings.config' as config;
+
+@include describe('color-mode mixin (data-attribute approach)') {
+  @include it('should output data attribute selector with default mode') {
+    @include assert {
+      @include output {
+        @include tools.color-mode {
+          color: black;
+        }
+      }
+      @include expect {
+        [data-#{config.$prefix}color-mode='light'] {
+          color: black;
+        }
+      }
+    }
+  }
+
+  @include it('should output data attribute selector with custom mode') {
+    @include assert {
+      @include output {
+        @include tools.color-mode(dark) {
+          color: white;
+        }
+      }
+      @include expect {
+        [data-#{config.$prefix}color-mode='dark'] {
+          color: white;
+        }
+      }
+    }
+  }
+
+  @include it('should ignore $root parameter') {
+    @include assert {
+      @include output {
+        @include tools.color-mode(dark, true) {
+          color: white;
+        }
+      }
+      @include expect {
+        [data-#{config.$prefix}color-mode='dark'] {
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+// We can't test the other branch of tools.color-mode within the same test file
+// because Sass module variables can only be configured once per module load.
+// If we needed to test the media-query approach, we'd need a separate test file
+// where we configure the color-mode module with $color-mode-type: 'media-query'.
