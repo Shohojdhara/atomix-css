@@ -19,10 +19,8 @@
       max-width: $container-max-width;
     }
 
-    @each $name, $width in breakpoints.$grid-breakpoints {
-      .o-container {
-        @extend %responsive-container-#{$breakpoint};
-      }
+    .o-container {
+      @extend %responsive-container-#{$breakpoint};
     }
   }
 
