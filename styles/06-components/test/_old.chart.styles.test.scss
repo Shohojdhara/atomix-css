@@ -1,0 +1,31 @@
+@use 'true' as *;
+@use '../old.chart.styles' as chart;
+
+@include describe('Chart Component Mixins') {
+  @include it('chart-loading-shimmer [mixin]') {
+    @include assert() {
+      @include output() {
+        .test-class {
+          @include chart.chart-loading-shimmer();
+        }
+      }
+      @include expect() {
+        .test-class {
+          position: relative;
+          overflow: hidden;
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: chart-shimmer 2s infinite;
+          }
+        }
+      }
+    }
+  }
+}
