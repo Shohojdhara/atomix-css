@@ -1,0 +1,19 @@
+@use 'true' as *;
+@use '../old.chart.styles' as chart;
+
+@include describe('chart-glassmorphism mixin') {
+  @include it('should output correct glassmorphism styles') {
+    @include assert {
+      @include output {
+        @include chart.chart-glassmorphism;
+      }
+
+      @include expect {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
