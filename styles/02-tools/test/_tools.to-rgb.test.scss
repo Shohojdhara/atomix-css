@@ -1,0 +1,28 @@
+@use 'true' as *;
+@use '../tools.to-rgb' as tools;
+
+@include describe('to-rgb function') {
+  @include it('should return rgb string for a hex color') {
+    @include assert-equal(tools.to-rgb(#ff0000), "255, 0, 0");
+  }
+
+  @include it('should return rgb string for an rgba color') {
+    @include assert-equal(tools.to-rgb(rgba(0, 255, 0, 0.5)), "0, 255, 0");
+  }
+
+  @include it('should return rgb string for a named color') {
+    @include assert-equal(tools.to-rgb(blue), "0, 0, 255");
+  }
+
+  @include it('should pass through CSS variable strings') {
+    @include assert-equal(tools.to-rgb('var(--my-color)'), 'var(--my-color)');
+  }
+
+  @include it('should pass through other string values') {
+    @include assert-equal(tools.to-rgb('inherit'), 'inherit');
+  }
+
+  @include it('should pass through non-string non-color values') {
+    @include assert-equal(tools.to-rgb(123), 123);
+  }
+}
