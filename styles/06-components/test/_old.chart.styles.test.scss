@@ -1,0 +1,28 @@
+@use 'true' as *;
+@use '../old.chart.styles' as chart;
+@use '../../01-settings/settings.box-shadow' as box-shadow;
+
+@include describe('chart-hover-elevation mixin') {
+  @include it('should output correct transition and hover styles') {
+    @include assert {
+      @include output {
+        .test-chart {
+          @include chart.chart-hover-elevation;
+        }
+      }
+      @include expect {
+        .test-chart {
+          transition:
+            box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .test-chart:hover {
+          box-shadow: box-shadow.$box-shadow-lg;
+          transform: translateY(-1px);
+          border-color: var(--atomix-primary-border-subtle);
+        }
+      }
+    }
+  }
+}
