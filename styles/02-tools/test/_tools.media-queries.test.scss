@@ -1,0 +1,94 @@
+@use 'true' as *;
+@use '../tools.media-queries' as mq;
+
+@include describe('media-only mixin') {
+  @include it('should output correct media query for xs') {
+    @include assert() {
+      @include output() {
+        @include mq.media-only('xs') {
+          color: red;
+        }
+      }
+      @include expect() {
+        @media (min-width: 0) and (max-width: 575.98px) {
+          color: red;
+        }
+      }
+    }
+  }
+
+  @include it('should output correct media query for sm') {
+    @include assert() {
+      @include output() {
+        @include mq.media-only('sm') {
+          color: blue;
+        }
+      }
+      @include expect() {
+        @media (min-width: 576px) and (max-width: 767.98px) {
+          color: blue;
+        }
+      }
+    }
+  }
+
+  @include it('should output correct media query for md') {
+    @include assert() {
+      @include output() {
+        @include mq.media-only('md') {
+          color: green;
+        }
+      }
+      @include expect() {
+        @media (min-width: 768px) and (max-width: 991.98px) {
+          color: green;
+        }
+      }
+    }
+  }
+
+  @include it('should output correct media query for lg') {
+    @include assert() {
+      @include output() {
+        @include mq.media-only('lg') {
+          color: yellow;
+        }
+      }
+      @include expect() {
+        @media (min-width: 992px) and (max-width: 1199.98px) {
+          color: yellow;
+        }
+      }
+    }
+  }
+
+  @include it('should output correct media query for xl') {
+    @include assert() {
+      @include output() {
+        @include mq.media-only('xl') {
+          color: black;
+        }
+      }
+      @include expect() {
+        @media (min-width: 1200px) {
+          color: black;
+        }
+      }
+    }
+  }
+
+  @include it('should output correct media query for xxl') {
+    @include assert() {
+      @include output() {
+        @include mq.media-only('xxl') {
+          color: purple;
+        }
+      }
+      @include expect() {
+        @media (min-width: 1440px) {
+          color: purple;
+        }
+      }
+    }
+  }
+}
