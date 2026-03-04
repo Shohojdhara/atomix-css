@@ -1,0 +1,33 @@
+@use 'true' as *;
+@use '../tools.border-radius' as tools;
+
+@include describe('valid-radius function') {
+  @include it('should return the radius if it is a single valid number') {
+    @include assert-equal(tools.valid-radius(10px), 10px);
+  }
+
+  @include it('should return a list of radii if given multiple valid numbers') {
+    @include assert-equal(tools.valid-radius(10px 20px), 10px 20px);
+    @include assert-equal(tools.valid-radius(10px 20px 30px), 10px 20px 30px);
+    @include assert-equal(tools.valid-radius(10px 20px 30px 40px), 10px 20px 30px 40px);
+  }
+
+  @include it('should bounded negative numbers to 0') {
+    @include assert-equal(tools.valid-radius(-10px), 0);
+    @include assert-equal(tools.valid-radius(-10px 20px), 0 20px);
+    @include assert-equal(tools.valid-radius(10px -20px), 10px 0);
+  }
+
+  @include it('should ignore non-number values') {
+    @include assert-equal(tools.valid-radius(invalid), 0);
+    @include assert-equal(tools.valid-radius('10px'), 0);
+    @include assert-equal(tools.valid-radius(10px invalid 20px), 10px 20px);
+    @include assert-equal(tools.valid-radius(invalid 10px), 10px);
+  }
+
+  @include it('should return 0 for 0 values') {
+    @include assert-equal(tools.valid-radius(0), 0);
+    @include assert-equal(tools.valid-radius(0 0), 0 0);
+    @include assert-equal(tools.valid-radius(10px 0), 10px 0);
+  }
+}

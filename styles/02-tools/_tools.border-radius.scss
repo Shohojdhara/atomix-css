@@ -13,7 +13,7 @@
       }
 
       @else {
-        $return: $return max($value, 0);
+        $return: list.append($return, max($value, 0), space);
       }
     }
   }
