@@ -1,0 +1,50 @@
+@use 'true' as *;
+@use '../settings.fonts' as settings;
+
+@include describe('font-face mixin') {
+  @include it('should generate a @font-face rule with default weight and style') {
+    @include assert {
+      @include output {
+        @include settings.font-face('MyFont', 'myfont-folder', 'myfont-file');
+      }
+
+      @include expect {
+        @font-face {
+          // stylelint-disable-next-line font-family-name-quotes
+          font-family: 'MyFont';
+          src:
+            url('../assets/fonts//myfont-folder/myfont-file.woff2') format('woff2'),
+            url('../assets/fonts//myfont-folder/myfont-file.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+          // stylelint-disable-next-line value-keyword-case
+          text-rendering: optimizeLegibility;
+        }
+      }
+    }
+  }
+
+  @include it('should generate a @font-face rule with custom weight and style') {
+    @include assert {
+      @include output {
+        @include settings.font-face('MyFont', 'myfont-folder', 'myfont-file', 700, italic);
+      }
+
+      @include expect {
+        @font-face {
+          // stylelint-disable-next-line font-family-name-quotes
+          font-family: 'MyFont';
+          src:
+            url('../assets/fonts//myfont-folder/myfont-file.woff2') format('woff2'),
+            url('../assets/fonts//myfont-folder/myfont-file.woff') format('woff');
+          font-weight: 700;
+          font-style: italic;
+          font-display: swap;
+          // stylelint-disable-next-line value-keyword-case
+          text-rendering: optimizeLegibility;
+        }
+      }
+    }
+  }
+}
