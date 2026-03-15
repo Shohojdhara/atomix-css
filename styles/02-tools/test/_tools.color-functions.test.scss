@@ -1,0 +1,26 @@
+@use 'true' as *;
+@use '../tools.color-functions' as tools;
+@use 'sass:color';
+
+@include describe('shift-color function') {
+  @include it('should tint color when weight is positive') {
+    $color: #ff0000;
+    $weight: 50%;
+    $expected: color.mix(white, $color, $weight);
+    @include assert-equal(tools.shift-color($color, $weight), $expected);
+  }
+
+  @include it('should shade color when weight is negative') {
+    $color: #ff0000;
+    $weight: -50%;
+    $expected: color.mix(black, $color, 50%);
+    @include assert-equal(tools.shift-color($color, $weight), $expected);
+  }
+
+  @include it('should return original color when weight is zero') {
+    $color: #ff0000;
+    $weight: 0%;
+    $expected: color.mix(black, $color, 0%);
+    @include assert-equal(tools.shift-color($color, $weight), $expected);
+  }
+}
