@@ -1,0 +1,57 @@
+@use 'true' as *;
+@use '../../01-settings/settings.color-mode' as color-mode with (
+  $color-mode-type: 'media-query'
+);
+@use '../tools.color-mode' as tools;
+
+@include describe('color-mode mixin (media-query)') {
+  @include it('generates media query for light mode') {
+    @include assert {
+      @include output {
+        @include tools.color-mode(light) {
+          color: red;
+        }
+      }
+
+      @include expect {
+        @media (prefers-color-scheme: light) {
+          color: red;
+        }
+      }
+    }
+  }
+
+  @include it('generates media query for dark mode') {
+    @include assert {
+      @include output {
+        @include tools.color-mode(dark) {
+          color: blue;
+        }
+      }
+
+      @include expect {
+        @media (prefers-color-scheme: dark) {
+          color: blue;
+        }
+      }
+    }
+  }
+
+  @include it('generates media query with root element for light mode') {
+    @include assert {
+      @include output {
+        @include tools.color-mode(light, true) {
+          color: red;
+        }
+      }
+
+      @include expect {
+        @media (prefers-color-scheme: light) {
+          :root {
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}

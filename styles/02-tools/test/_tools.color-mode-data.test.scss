@@ -1,0 +1,42 @@
+@use 'true' as *;
+@use '../../01-settings/settings.color-mode' as color-mode with (
+  $color-mode-type: 'data-attribute'
+);
+@use '../../01-settings/settings.config' as config with (
+  $prefix: 'test-'
+);
+@use '../tools.color-mode' as tools;
+
+@include describe('color-mode mixin (data-attribute)') {
+  @include it('generates data attribute selector for light mode') {
+    @include assert {
+      @include output {
+        @include tools.color-mode(light) {
+          color: red;
+        }
+      }
+
+      @include expect {
+        [data-test-color-mode='light'] {
+          color: red;
+        }
+      }
+    }
+  }
+
+  @include it('generates data attribute selector for dark mode') {
+    @include assert {
+      @include output {
+        @include tools.color-mode(dark) {
+          color: blue;
+        }
+      }
+
+      @include expect {
+        [data-test-color-mode='dark'] {
+          color: blue;
+        }
+      }
+    }
+  }
+}
