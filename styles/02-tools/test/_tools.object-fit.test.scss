@@ -1,0 +1,52 @@
+@use 'true' as *;
+@use '../tools.object-fit' as tools;
+
+@include describe('object-fit mixin') {
+  @include it('should output default object-fit and object-position') {
+    @include assert() {
+      @include output() {
+        .test {
+          @include tools.object-fit();
+        }
+      }
+      @include expect() {
+        .test {
+          object-fit: contain;
+          object-position: center;
+        }
+      }
+    }
+  }
+
+  @include it('should output custom object-fit and default object-position') {
+    @include assert() {
+      @include output() {
+        .test {
+          @include tools.object-fit(cover);
+        }
+      }
+      @include expect() {
+        .test {
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+    }
+  }
+
+  @include it('should output custom object-fit and custom object-position') {
+    @include assert() {
+      @include output() {
+        .test {
+          @include tools.object-fit(fill, top left);
+        }
+      }
+      @include expect() {
+        .test {
+          object-fit: fill;
+          object-position: top left;
+        }
+      }
+    }
+  }
+}
