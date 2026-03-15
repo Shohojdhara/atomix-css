@@ -1387,12 +1387,9 @@
 
     @include focus-ring;
   }
-}
 
-// Accessibility Enhancements
-// =============================================================================
-.c-chart {
-  $root: &;
+  // Accessibility Enhancements
+  // =============================================================================
 
   // High contrast mode support
   @media (prefers-contrast: high) {
