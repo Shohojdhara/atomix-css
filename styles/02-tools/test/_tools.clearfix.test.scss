@@ -1,0 +1,21 @@
+@use 'true' as *;
+@use '../tools.clearfix' as tools;
+
+@include describe('clearfix mixin') {
+  @include it('outputs the correct clearfix rules') {
+    @include assert() {
+      @include output() {
+        .usage {
+          @include tools.clearfix();
+        }
+      }
+      @include expect() {
+        .usage:after {
+          content: '' !important;
+          display: block !important;
+          clear: both !important;
+        }
+      }
+    }
+  }
+}
