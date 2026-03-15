@@ -43,10 +43,6 @@
         } @else if ($state == 'dark') {
           --#{config.$prefix}list-group-item-color: var(--#{config.$prefix}invert-text-emphasis);
           --#{config.$prefix}list-group-item-bg: var(--#{config.$prefix}#{$state});
-
-          // @include color-mode('dark') {
-          //     --#{$prefix}list-group-item-color: var(--#{$prefix}body-color);
-          // }
         } @else if($state == 'primary') {
           --#{config.$prefix}list-group-item-bg: var(--#{config.$prefix}brand-bg-subtle);
         } @else {
