@@ -1,0 +1,26 @@
+@use 'true' as *;
+@use '../tools.color-functions' as tools;
+@use 'sass:string';
+
+@include describe('add-var function') {
+  @include it('should add two standard numbers') {
+    @include assert-equal(tools.add-var(10, 5), 15);
+  }
+
+  @include it('should add two numbers with units') {
+    @include assert-equal(tools.add-var(10px, 5px), 15px);
+  }
+
+  @include it('should concatenate when one value is a CSS variable') {
+    @include assert-equal(tools.add-var(var(--foo), 5px), string.unquote("var(--foo)5px"));
+  }
+
+  @include it('should concatenate when both values are CSS variables') {
+    @include assert-equal(tools.add-var(var(--foo), var(--bar)), string.unquote("var(--foo)var(--bar)"));
+  }
+
+  @include it('should evaluate calc internally in unquoted context') {
+    // SASS automatically simplifies calc(10px) to 10px when added to a string
+    @include assert-equal(tools.add-var(calc(10px), var(--foo)), string.unquote("10pxvar(--foo)"));
+  }
+}
