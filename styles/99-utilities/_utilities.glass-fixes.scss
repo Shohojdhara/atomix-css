@@ -8,12 +8,12 @@
 // =============================================================================
 
 // Remove problematic properties that break backdrop-filter
-.u-glass-clean-root {
-  isolation: initial !important;
-  contain: none !important;
-  transform-style: flat !important;
-  will-change: auto !important;
-  transform: none !important;
+.u-glass-clean-root.u-glass-clean-root {
+  isolation: initial;
+  contain: none;
+  transform-style: flat;
+  will-change: auto;
+  transform: none;
   z-index: unset;
 }
 
