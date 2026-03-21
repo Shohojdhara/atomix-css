@@ -1,0 +1,52 @@
+@use 'sass:map';
+@use 'true' as *;
+@use '../styles/02-tools/tools.breakpoints' as breakpoints;
+
+@include describe('media-breakpoint-up mixin') {
+
+  @include it('outputs media query for known breakpoint') {
+    @include assert {
+      @include output {
+        @include breakpoints.media-breakpoint-up('sm') {
+          color: red;
+        }
+      }
+
+      @include expect {
+        @media (min-width: 576px) {
+          color: red;
+        }
+      }
+    }
+  }
+
+  @include it('outputs content without media query if breakpoint name is not found') {
+     @include assert {
+      @include output {
+        @include breakpoints.media-breakpoint-up('unknown') {
+            color: blue;
+        }
+      }
+      @include expect {
+        color: blue;
+      }
+    }
+  }
+
+  // Testing the edge case where min-width is 0 (xs breakpoint)
+  // Based on current implementation, it outputs media query with min-width: 0
+  @include it('outputs media query with 0 if breakpoint is xs') {
+     @include assert {
+        @include output {
+            @include breakpoints.media-breakpoint-up('xs') {
+                color: green;
+            }
+        }
+        @include expect {
+            @media (min-width: 0) {
+                color: green;
+            }
+        }
+     }
+  }
+}

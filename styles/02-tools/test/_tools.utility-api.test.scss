@@ -1,0 +1,39 @@
+@use 'true' as *;
+@use '../tools.utility-api' as tools;
+
+@include describe('zip function') {
+  @include it('should zip keys and values of equal length') {
+    $keys: (a, b, c);
+    $values: (1, 2, 3);
+    $expected: (a: 1, b: 2, c: 3);
+    @include assert-equal(tools.zip($keys, $values), $expected);
+  }
+
+  @include it('should zip keys and values where keys are longer (values become null)') {
+    $keys: (a, b, c, d);
+    $values: (1, 2, 3);
+    $expected: (a: 1, b: 2, c: 3, d: null);
+    @include assert-equal(tools.zip($keys, $values), $expected);
+  }
+
+  @include it('should zip keys and values where values are longer (extra values ignored)') {
+    $keys: (a, b);
+    $values: (1, 2, 3);
+    $expected: (a: 1, b: 2);
+    @include assert-equal(tools.zip($keys, $values), $expected);
+  }
+
+  @include it('should return an empty map for empty lists') {
+    $keys: ();
+    $values: ();
+    $expected: ();
+    @include assert-equal(tools.zip($keys, $values), $expected);
+  }
+
+  @include it('should return a map with single key-value pair for single element lists') {
+    $keys: (a);
+    $values: (1);
+    $expected: (a: 1);
+    @include assert-equal(tools.zip($keys, $values), $expected);
+  }
+}
