@@ -14,7 +14,7 @@
     "watch": "sass --watch styles/index.scss dist/atomix-styles.css",
     "lint": "stylelint \"styles/**/*.scss\"",
     "lint:fix": "stylelint \"styles/**/*.scss\" --fix",
-    "test": "jest tests/run.test.js"
+    "test": "jest"
   },
   "files": [
     "dist/",
@@ -46,7 +46,6 @@
   "devDependencies": {
     "glob": "^13.0.6",
     "jest": "^30.2.0",
-    "jest-cli": "^30.2.0",
     "sass": "^1.70.0",
     "sass-true": "^10.1.0",
     "stylelint": "^16.0.0",

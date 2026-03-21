@@ -1,0 +1,38 @@
+@use 'sass-true' as *;
+@use '../01-settings/settings.breakpoints' as breakpoints;
+@use 'tools.breakpoints' as tools;
+
+@include describe('breakpoint-min()') {
+  @include it('returns null for the smallest breakpoint (xs)') {
+    @include assert-equal(tools.breakpoint-min('xs'), null);
+  }
+
+  @include it('returns the minimum width for a larger breakpoint (sm)') {
+    @include assert-equal(tools.breakpoint-min('sm'), 576px);
+  }
+
+  @include it('returns the minimum width for another larger breakpoint (md)') {
+    @include assert-equal(tools.breakpoint-min('md'), 768px);
+  }
+
+  @include it('returns null for an invalid breakpoint name') {
+    @include assert-equal(tools.breakpoint-min('invalid'), null);
+  }
+
+  @include it('uses a custom breakpoints map') {
+    $custom-breakpoints: (
+      small: 0,
+      medium: 500px,
+      large: 1000px
+    );
+    @include assert-equal(tools.breakpoint-min('medium', $custom-breakpoints), 500px);
+  }
+
+  @include it('returns null for the smallest breakpoint in a custom map') {
+    $custom-breakpoints: (
+      small: 0,
+      medium: 500px
+    );
+    @include assert-equal(tools.breakpoint-min('small', $custom-breakpoints), null);
+  }
+}
