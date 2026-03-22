@@ -1,0 +1,27 @@
+@use 'true' as *;
+@use '../old.chart.styles' as chart;
+@use '../../01-settings/settings.colors' as *;
+@use '../../01-settings/settings.spacing' as *;
+@use '../../01-settings/settings.typography' as *;
+@use '../../01-settings/settings.border-radius' as *;
+@use '../../01-settings/settings.box-shadow' as *;
+@use '../../02-tools/tools.component' as component;
+
+@include describe('chart-focus-ring mixin') {
+  @include it('outputs focus ring styles on :focus-visible') {
+    @include assert() {
+      @include output() {
+        .test {
+          @include chart.chart-focus-ring;
+        }
+      }
+
+      @include expect() {
+        .test:focus-visible {
+          @include component.focus-ring;
+          box-shadow: $box-shadow-md, 0 0 0 3px var(--atomix-primary-border-subtle);
+        }
+      }
+    }
+  }
+}
