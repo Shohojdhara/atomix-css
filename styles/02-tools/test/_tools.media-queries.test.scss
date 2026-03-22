@@ -1,0 +1,61 @@
+@use 'true' as *;
+@use '../tools.media-queries' as mq;
+
+@include describe('media-down mixin') {
+  @include it('should output a max-width media query for md breakpoint') {
+    @include assert {
+      @include output {
+        @include mq.media-down('md') {
+          .test { color: red; }
+        }
+      }
+      @include expect {
+        @media (max-width: 767.98px) {
+          .test { color: red; }
+        }
+      }
+    }
+  }
+
+  @include it('should output a max-width media query for sm breakpoint') {
+    @include assert {
+      @include output {
+        @include mq.media-down('sm') {
+          .test { color: red; }
+        }
+      }
+      @include expect {
+        @media (max-width: 575.98px) {
+          .test { color: red; }
+        }
+      }
+    }
+  }
+
+  @include it('should output a max-width media query for xs breakpoint') {
+    @include assert {
+      @include output {
+        @include mq.media-down('xs') {
+          .test { color: red; }
+        }
+      }
+      @include expect {
+        @media (max-width: -0.02px) {
+          .test { color: red; }
+        }
+      }
+    }
+  }
+
+  @include it('should not output anything for an unknown breakpoint') {
+    @include assert {
+      @include output {
+        @include mq.media-down('unknown') {
+          .test { color: red; }
+        }
+      }
+      @include expect {
+      }
+    }
+  }
+}
