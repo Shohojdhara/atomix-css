@@ -1,0 +1,31 @@
+@use 'true' as *;
+@use '../tools.rem' as tools;
+
+@include describe('rem function') {
+  @include it('should return null when value is null') {
+    @include assert-equal(tools.rem(null), null);
+  }
+
+  @include it('should return the value as it is when it is not a number') {
+    @include assert-equal(tools.rem(auto), auto);
+    @include assert-equal(tools.rem('16px'), '16px');
+    @include assert-equal(tools.rem(inherit), inherit);
+  }
+
+  @include it('should convert pixel values to rem') {
+    @include assert-equal(tools.rem(16px), 1rem);
+    @include assert-equal(tools.rem(32px), 2rem);
+    @include assert-equal(tools.rem(0px), 0rem);
+    @include assert-equal(tools.rem(8px), 0.5rem);
+    @include assert-equal(tools.rem(-16px), -1rem);
+  }
+
+  @include it('should return the value as it is when it is not in pixels') {
+    @include assert-equal(tools.rem(1rem), 1rem);
+    @include assert-equal(tools.rem(2em), 2em);
+    @include assert-equal(tools.rem(100%), 100%);
+    @include assert-equal(tools.rem(0), 0);
+    @include assert-equal(tools.rem(16), 16);
+    @include assert-equal(tools.rem(10vw), 10vw);
+  }
+}
