@@ -1,0 +1,47 @@
+@use 'true' as *;
+@use '../tools.event' as tools;
+
+@include describe('on-event mixin') {
+  @include it('should output pseudo-classes without self when $self is false') {
+    @include assert() {
+      @include output() {
+        .test {
+          @include tools.on-event() {
+            color: red;
+          }
+        }
+      }
+
+      @include expect() {
+        .test:hover,
+        .test:active,
+        .test:focus,
+        .test:focus-visible {
+          color: red;
+        }
+      }
+    }
+  }
+
+  @include it('should output pseudo-classes with self when $self is true') {
+    @include assert() {
+      @include output() {
+        .test {
+          @include tools.on-event($self: true) {
+            color: red;
+          }
+        }
+      }
+
+      @include expect() {
+        .test,
+        .test:hover,
+        .test:active,
+        .test:focus,
+        .test:focus-visible {
+          color: red;
+        }
+      }
+    }
+  }
+}
