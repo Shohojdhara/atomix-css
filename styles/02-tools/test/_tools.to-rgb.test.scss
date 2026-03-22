@@ -1,0 +1,28 @@
+@use 'true' as *;
+@use '../tools.to-rgb' as tools;
+
+@include describe('to-rgb function') {
+  @include it('converts a hex color to an rgb string') {
+    @include assert-equal(tools.to-rgb(#ff0000), "255, 0, 0");
+  }
+
+  @include it('converts an rgb color to an rgb string') {
+    @include assert-equal(tools.to-rgb(rgb(0, 255, 0)), "0, 255, 0");
+  }
+
+  @include it('converts an rgba color to an rgb string, dropping the alpha channel') {
+    @include assert-equal(tools.to-rgb(rgba(0, 0, 255, 0.5)), "0, 0, 255");
+  }
+
+  @include it('handles named colors') {
+    @include assert-equal(tools.to-rgb(black), "0, 0, 0");
+  }
+
+  @include it('passes through a CSS variable string') {
+    @include assert-equal(tools.to-rgb(var(--my-color)), var(--my-color));
+  }
+
+  @include it('passes through a random string') {
+    @include assert-equal(tools.to-rgb("inherit"), "inherit");
+  }
+}
