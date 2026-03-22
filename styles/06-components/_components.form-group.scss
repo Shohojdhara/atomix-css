@@ -1,4 +1,5 @@
 @use '../01-settings/settings.config' as *;
+@use '../01-settings/settings.input' as *;
 @use '../01-settings/settings.form-group' as *;
 @use '../02-tools/tools.rem' as *;
 @use '../02-tools/tools.background' as *;
@@ -38,7 +39,10 @@
 
   &--lg {
     #{$root}__field {
-      @extend .c-input--lg !optional;
+      --#{$prefix}input-font-size: #{$input-font-size-lg};
+      --#{$prefix}input-line-height: #{$input-line-height-lg};
+      --#{$prefix}input-padding-x: #{rem($input-padding-x-lg)};
+      --#{$prefix}input-padding-y: #{rem($input-padding-y-lg)};
     }
   }
 
@@ -46,7 +50,10 @@
     --#{$prefix}input-group-label-font-size: #{$input-group-label-font-size-sm};
 
     #{$root}__field {
-      @extend .c-input--sm !optional;
+      --#{$prefix}input-font-size: #{$input-font-size-sm};
+      --#{$prefix}input-line-height: #{$input-line-height-sm};
+      --#{$prefix}input-padding-x: #{rem($input-padding-x-sm)};
+      --#{$prefix}input-padding-y: #{rem($input-padding-y-sm)};
     }
   }
 
@@ -54,7 +61,7 @@
     --#{$prefix}input-group-helper-text-color: var(--#{$prefix}success-text-emphasis);
 
     #{$root}__field {
-      @extend .is-success !optional;
+      --#{$prefix}input-border-color: #{$input-success-border-color};
     }
   }
 
@@ -62,7 +69,7 @@
     --#{$prefix}input-group-helper-text-color: var(--#{$prefix}error-text-emphasis);
 
     #{$root}__field {
-      @extend .is-invalid !optional;
+      --#{$prefix}input-border-color: #{$input-invalid-border-color};
     }
   }
 
@@ -73,7 +80,10 @@
     }
 
     #{$root}__field {
-      @extend .is-disabled !optional;
+      --#{$prefix}input-color: #{$input-disabled-color};
+      --#{$prefix}input-bg: #{$input-disabled-bg};
+
+      pointer-events: none;
     }
   }
 }
