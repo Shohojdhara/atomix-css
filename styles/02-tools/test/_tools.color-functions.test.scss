@@ -1,0 +1,32 @@
+@use 'true' as *;
+@use '../tools.color-functions' as tools;
+
+@include describe('shade-color function') {
+  @include it('should mix a color with black using the given weight') {
+    $color: #ffffff;
+    $weight: 50%;
+    $expected: rgb(127.5, 127.5, 127.5);
+    @include assert-equal(tools.shade-color($color, $weight), $expected);
+  }
+
+  @include it('should return black when weight is 100%') {
+    $color: #ffffff;
+    $weight: 100%;
+    $expected: #000000;
+    @include assert-equal(tools.shade-color($color, $weight), $expected);
+  }
+
+  @include it('should return the original color when weight is 0%') {
+    $color: #ffffff;
+    $weight: 0%;
+    $expected: #ffffff;
+    @include assert-equal(tools.shade-color($color, $weight), $expected);
+  }
+
+  @include it('should properly mix a primary color with black') {
+    $color: #ff0000;
+    $weight: 50%;
+    $expected: rgb(127.5, 0, 0);
+    @include assert-equal(tools.shade-color($color, $weight), $expected);
+  }
+}
