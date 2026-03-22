@@ -1,0 +1,21 @@
+@use 'true' as *;
+@use '../tools.clearfix' as tools;
+
+@include describe('clearfix mixin') {
+  @include it('should output clearfix styles on the :after pseudo-element') {
+    @include assert() {
+      @include output() {
+        .test {
+          @include tools.clearfix();
+        }
+      }
+      @include expect() {
+        .test:after {
+          content: '' !important;
+          display: block !important;
+          clear: both !important;
+        }
+      }
+    }
+  }
+}
