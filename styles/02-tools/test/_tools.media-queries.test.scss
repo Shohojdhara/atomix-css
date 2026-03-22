@@ -1,0 +1,45 @@
+@use 'true' as *;
+@use '../tools.media-queries' as tools;
+
+@include describe('media-between mixin') {
+  @include it('should output a media query between two valid breakpoints') {
+    @include assert {
+      @include output {
+        @include tools.media-between('sm', 'lg') {
+          color: green;
+        }
+      }
+      @include expect {
+        @media (min-width: 576px) and (max-width: 991.98px) {
+          color: green;
+        }
+      }
+    }
+  }
+
+  @include it('should warn if the lower breakpoint is unknown') {
+    @include assert {
+      @include output {
+        @include tools.media-between('unknown', 'lg') {
+          color: green;
+        }
+      }
+      @include expect {
+        // Expected empty output
+      }
+    }
+  }
+
+  @include it('should warn if the upper breakpoint is unknown') {
+    @include assert {
+      @include output {
+        @include tools.media-between('sm', 'unknown') {
+          color: green;
+        }
+      }
+      @include expect {
+        // Expected empty output
+      }
+    }
+  }
+}
