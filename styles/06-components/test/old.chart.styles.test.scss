@@ -1,0 +1,54 @@
+@use 'true' as *;
+@use '../old.chart.styles' as chart;
+
+@include describe('chart-gradient-border mixin') {
+  @include it('should output default gradient border styles') {
+    @include assert {
+      @include output {
+        .test {
+          @include chart.chart-gradient-border();
+        }
+      }
+      @include expect {
+        .test {
+          position: relative;
+        }
+        .test::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, var(--atomix-primary-6), transparent);
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+
+  @include it('should output gradient border styles for a custom color') {
+    @include assert {
+      @include output {
+        .test {
+          @include chart.chart-gradient-border('secondary');
+        }
+      }
+      @include expect {
+        .test {
+          position: relative;
+        }
+        .test::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, var(--atomix-secondary), transparent);
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+}
