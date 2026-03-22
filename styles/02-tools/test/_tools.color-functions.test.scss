@@ -1,0 +1,20 @@
+@use 'true' as *;
+@use '../tools.color-functions' as tools;
+
+@include describe('rgb-to-color function') {
+  @include it('should return a red SASS color from RGB values') {
+    @include assert-equal(tools.rgb-to-color(255, 0, 0), rgb(255, 0, 0));
+  }
+
+  @include it('should return white for 255, 255, 255') {
+    @include assert-equal(tools.rgb-to-color(255, 255, 255), #ffffff);
+  }
+
+  @include it('should return black for 0, 0, 0') {
+    @include assert-equal(tools.rgb-to-color(0, 0, 0), #000000);
+  }
+
+  @include it('should handle percentages correctly') {
+    @include assert-equal(tools.rgb-to-color(100%, 0%, 50%), rgb(255, 0, 127.5));
+  }
+}
