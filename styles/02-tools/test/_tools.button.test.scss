@@ -1,0 +1,65 @@
+@use 'true' as *;
+@use '../tools.button' as button;
+
+@include describe('btn-outline-variant mixin') {
+  @include it('should generate button outline variables with a single color') {
+    @include assert() {
+      @include output() {
+        .btn-outline-primary {
+          @include button.btn-outline-variant('primary');
+        }
+      }
+
+      @include expect() {
+        .btn-outline-primary {
+          --atomix-btn-color: var(--atomix-primary, #8b5cf6);
+          --atomix-btn-bg: transparent;
+          --atomix-btn-border-color: var(--atomix-primary, #8b5cf6);
+          --atomix-btn-hover-color: var(--atomix-white, #ffffff);
+          --atomix-btn-hover-bg: var(--atomix-primary-hover, rgb(104.8069767442, 43.9529069767, 243.3470930233));
+          --atomix-btn-hover-border-color: var(--atomix-primary-hover, rgb(116.2046511628, 59.9686046512, 244.2313953488));
+          --atomix-btn-active-color: var(--atomix-white, #ffffff);
+          --atomix-btn-active-bg: var(--atomix-primary-hover, rgb(93.4093023256, 27.9372093023, 242.4627906977));
+          --atomix-btn-active-border-color: var(--atomix-primary-hover, rgb(82.5348837209, 13.2645348837, 240.2354651163));
+          --atomix-btn-disabled-color: var(--atomix-primary, #8b5cf6);
+          --atomix-btn-disabled-bg: transparent;
+          --atomix-btn-disabled-border-color: var(--atomix-primary, #8b5cf6);
+        }
+      }
+    }
+  }
+
+  @include it('should generate button outline variables with custom hover and active parameters') {
+    @include assert() {
+      @include output() {
+        .btn-outline-custom {
+          @include button.btn-outline-variant(
+            $color: 'primary',
+            $color-hover: 'secondary',
+            $hover-background: 'success',
+            $hover-border: 'info',
+            $active-background: 'warning',
+            $active-border: 'error'
+          );
+        }
+      }
+
+      @include expect() {
+        .btn-outline-custom {
+          --atomix-btn-color: var(--atomix-primary, #8b5cf6);
+          --atomix-btn-bg: transparent;
+          --atomix-btn-border-color: var(--atomix-primary, #8b5cf6);
+          --atomix-btn-hover-color: var(--atomix-secondary, #f3f4f6);
+          --atomix-btn-hover-bg: var(--atomix-success, #22c55e);
+          --atomix-btn-hover-border-color: var(--atomix-info, #3b82f6);
+          --atomix-btn-active-color: var(--atomix-secondary, #f3f4f6);
+          --atomix-btn-active-bg: var(--atomix-warning, #eab308);
+          --atomix-btn-active-border-color: var(--atomix-error, #ef4444);
+          --atomix-btn-disabled-color: var(--atomix-primary, #8b5cf6);
+          --atomix-btn-disabled-bg: transparent;
+          --atomix-btn-disabled-border-color: var(--atomix-primary, #8b5cf6);
+        }
+      }
+    }
+  }
+}
