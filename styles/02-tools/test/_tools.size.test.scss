@@ -1,0 +1,40 @@
+@use 'true' as *;
+@use '../tools.size' as tools;
+
+@include describe('size mixins') {
+  @include describe('size') {
+    @include it('should output width and height') {
+      @include assert() {
+        @include output() {
+          .test {
+            @include tools.size(10px, 20px);
+          }
+        }
+        @include expect() {
+          .test {
+            width: 10px;
+            height: 20px;
+          }
+        }
+      }
+    }
+  }
+
+  @include describe('square') {
+    @include it('should output equal width and height') {
+      @include assert() {
+        @include output() {
+          .test {
+            @include tools.square(15px);
+          }
+        }
+        @include expect() {
+          .test {
+            width: 15px;
+            height: 15px;
+          }
+        }
+      }
+    }
+  }
+}
