@@ -1,10 +1,11 @@
 @use 'sass:map';
-@use 'settings.spacing' as spacing;
-@use 'settings.border' as border;
-@use 'settings.box-shadow' as shadow;
-@use 'settings.config' as *;
-@use 'settings.border-radius' as *;
-@use 'settings.typography' as *;
+@use 'sass:color';
+@use './settings.config' as *;
+@use './settings.colors' as colors;
+@use './settings.typography' as *;
+@use '../02-tools/tools.spacing' as spacing;
+@use '../02-tools/tools.border-radius' as border;
+@use '../01-settings/settings.box-shadow' as shadow;
 
 $btn-color: var(--#{$prefix}body-color) !default;
 $btn-padding-y: map.get(spacing.$spacing-sizes, 3) !default;
@@ -57,9 +58,10 @@ $btn-link-border-color-hover: var(--#{$prefix}secondary-border-subtle) !default;
 
 $btn-inner-gap: map.get(spacing.$spacing-sizes, 2) !default;
 
-$btn-transition:
-  all 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-  transform 0.15s ease-in-out !default;
+$btn-transition: color 0.15s ease-in-out,
+  background-color 0.15s ease-in-out,
+  border-color 0.15s ease-in-out,
+  box-shadow 0.15s ease-in-out !default;
 
 $btn-hover-bg-shade-amount: 71.5% !default;
 $btn-hover-bg-tint-amount: 82% !default;
@@ -70,15 +72,15 @@ $btn-active-bg-tint-amount: 20% !default;
 $btn-active-border-shade-amount: 25% !default;
 $btn-active-border-tint-amount: 10% !default;
 
-// Enhanced button states
+// Interactive state properties
 $btn-hover-transform: translateY(-1px) !default;
 $btn-hover-shadow: shadow.$box-shadow-sm !default;
 $btn-active-transform: translateY(0) !default;
 $btn-active-shadow: shadow.$box-shadow-xs !default;
 $btn-focus-shadow-opacity: 0.25 !default;
 
-// Enable pointer cursor on buttons
+// Options
 $enable-button-pointers: true !default;
 
-// Enable gradients
+// Gradient
 $enable-gradients: false !default;
