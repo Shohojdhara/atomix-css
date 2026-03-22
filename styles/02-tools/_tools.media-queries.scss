@@ -54,7 +54,13 @@
       $upper: 'lg';
     } @else if $breakpoint == 'lg' {
       $upper: 'xl';
-    } @else if $breakpoint == 'xl' {
+    }
+
+    @if $breakpoint == 'xl' {
+      @include media-up($breakpoint) {
+        @content;
+      }
+    } @else if $breakpoint == 'xxl' {
       @include media-up($breakpoint) {
         @content;
       }
