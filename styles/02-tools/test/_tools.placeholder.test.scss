@@ -1,0 +1,54 @@
+@use 'true' as *;
+@use '../tools.placeholder' as tools;
+
+@include describe('placeholder-color mixin') {
+  @include it('should output placeholder pseudo-elements with default color') {
+    @include assert() {
+      @include output() {
+        @include tools.placeholder-color();
+      }
+      @include expect() {
+        ::-webkit-input-placeholder {
+          color: #000;
+        }
+        :-moz-placeholder {
+          color: #000;
+        }
+        ::-moz-placeholder {
+          color: #000;
+        }
+        :-ms-input-placeholder {
+          color: #000;
+        }
+        ::-ms-input-placeholder {
+          color: #000;
+        }
+      }
+    }
+  }
+
+  @include it('should output placeholder pseudo-elements with custom color') {
+    @include assert() {
+      @include output() {
+        @include tools.placeholder-color(#ff0000);
+      }
+      @include expect() {
+        ::-webkit-input-placeholder {
+          color: #ff0000;
+        }
+        :-moz-placeholder {
+          color: #ff0000;
+        }
+        ::-moz-placeholder {
+          color: #ff0000;
+        }
+        :-ms-input-placeholder {
+          color: #ff0000;
+        }
+        ::-ms-input-placeholder {
+          color: #ff0000;
+        }
+      }
+    }
+  }
+}
