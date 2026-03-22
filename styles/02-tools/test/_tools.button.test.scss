@@ -1,0 +1,25 @@
+@use 'true' as *;
+@use '../tools.button' as button;
+
+@include describe('Button mixins') {
+  @include describe('btn-size') {
+    @include it('should generate button size variables correctly') {
+      @include assert {
+        @include output {
+          .test-btn {
+            @include button.btn-size(0.5rem, 1rem, 1rem, 0.25rem);
+          }
+        }
+
+        @include expect {
+          .test-btn {
+            --atomix-btn-padding-y: 0.5rem;
+            --atomix-btn-padding-x: 1rem;
+            --atomix-btn-font-size: 1rem;
+            --atomix-btn-border-radius: 0.25rem;
+          }
+        }
+      }
+    }
+  }
+}
